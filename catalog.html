@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Каталог — Аллея, питомник деревьев и кустарников, Ростов-на-Дону</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="grain"></div>
+
+<header class="site-header" id="site-header">
+  <a href="index.html" class="logo-link">
+    <img src="assets/logo-full.png" class="logo-img" alt="Аллея">
+  </a>
+  <nav class="main-nav">
+    <a href="catalog.html">Каталог</a>
+    <a href="index.html#about">О нас</a>
+    <a href="index.html#partners">Партнёры</a>
+    <a href="index.html#contact">Контакты</a>
+  </nav>
+  <div class="header-actions">
+    <span class="locale-tag">РОСТОВ-НА-ДОНУ</span>
+    <div class="lang-switch" role="group" aria-label="Язык сайта">
+      <button class="lang-opt" type="button" data-lang="ru">RU</button>
+      <button class="lang-opt" type="button" data-lang="en">EN</button>
+    </div>
+    <button class="cart-btn" type="button" aria-label="Открыть корзину">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.2"/><circle cx="17" cy="20" r="1.2"/><path d="M3 4h2l2.1 11a1.5 1.5 0 0 0 1.5 1.2h7.6a1.5 1.5 0 0 0 1.5-1.2L21 8H6"/></svg>
+      <span class="cart-btn-count" data-cart-count hidden>0</span>
+    </button>
+  </div>
+</header>
+
+<section class="page-head">
+  <p class="eyebrow">Каталог</p>
+  <h1 class="page-head-title">Полный каталог<br>деревьев и кустарников</h1>
+  <p class="page-head-sub">Аллейно-парковые деревья и кустарники собственного выращивания и из Европы, для парков, аллей и частных садов.</p>
+</section>
+
+<section class="catalog-layout catalog-page" id="inventory">
+  <aside class="filters" id="filters">
+    <p class="filters-title">Фильтры</p>
+
+    <div class="filter-group">
+      <p class="filter-label">Корневая система</p>
+      <div class="chip-row">
+        <button class="chip is-active" type="button" data-segment="grunt">Грунтовые</button>
+        <button class="chip" type="button" data-segment="container">Контейнерные</button>
+      </div>
+    </div>
+
+    <div class="filter-group" data-seg="grunt">
+      <p class="filter-label">Тип</p>
+      <div class="chip-row">
+        <button class="chip" type="button" data-filter="type" data-value="Аллейное">Аллейные</button>
+        <button class="chip" type="button" data-filter="type" data-value="Парковое">Парковые</button>
+        <button class="chip" type="button" data-filter="type" data-value="Плодовое">Плодовые</button>
+        <button class="chip" type="button" data-filter="type" data-value="Декоративное">Декоративные</button>
+      </div>
+    </div>
+
+    <div class="filter-group" data-seg="container" hidden>
+      <p class="filter-label">Тип</p>
+      <div class="chip-row">
+        <button class="chip" type="button" data-filter="type" data-value="Лиственное дерево">Лиственные деревья</button>
+        <button class="chip" type="button" data-filter="type" data-value="Живая изгородь">Живая изгородь</button>
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <p class="filter-label">Цена</p>
+      <div class="price">
+        <div class="price-vals">
+          <span id="price-min-label">3 000 ₽</span>
+          <span id="price-max-label">70 000 ₽</span>
+        </div>
+        <div class="range">
+          <div class="range-fill" id="range-fill"></div>
+          <input type="range" id="price-lo" min="3000" max="70000" step="500" value="3000" aria-label="Минимальная цена">
+          <input type="range" id="price-hi" min="3000" max="70000" step="500" value="70000" aria-label="Максимальная цена">
+        </div>
+        <div class="chip-row">
+          <button class="chip" type="button" data-price-pick="3000-10000">До 10 000 ₽</button>
+          <button class="chip" type="button" data-price-pick="10000-25000">10 000–25 000 ₽</button>
+          <button class="chip" type="button" data-price-pick="25000-70000">От 25 000 ₽</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="filter-group" data-seg="grunt">
+      <p class="filter-label">Высота саженца</p>
+      <div class="chip-row">
+        <button class="chip" type="button" data-filter="height" data-value="0-2">До 2 м</button>
+        <button class="chip" type="button" data-filter="height" data-value="2-3">2–3 м</button>
+        <button class="chip" type="button" data-filter="height" data-value="3-4">3–4 м</button>
+        <button class="chip" type="button" data-filter="height" data-value="4+">Выше 4 м</button>
+      </div>
+    </div>
+
+    <div class="filter-group" data-seg="grunt">
+      <p class="filter-label">Обхват ствола</p>
+      <div class="chip-row">
+        <button class="chip" type="button" data-filter="caliper" data-value="0-8">До 8 см</button>
+        <button class="chip" type="button" data-filter="caliper" data-value="8-12">8–12 см</button>
+        <button class="chip" type="button" data-filter="caliper" data-value="12-99">От 12 см</button>
+      </div>
+    </div>
+
+    <button class="filters-reset" type="button" id="filters-reset">Сбросить фильтры</button>
+  </aside>
+
+  <div class="catalog-main">
+    <p class="catalog-discount">Гибкие скидки: 5% от 100 000 ₽ · 10% от 300 000 ₽ · 15% от 500 000 ₽</p>
+    <div class="catalog-toolbar">
+      <p class="result-count"><span id="result-n">17</span> из <span id="result-total">17</span> видов</p>
+      <label class="sort">
+        <span>Сортировка</span>
+        <select id="sort-select">
+          <option value="pop">Сначала популярные</option>
+          <option value="price-asc">Сначала дешевле</option>
+          <option value="price-desc">Сначала дороже</option>
+          <option value="name">По названию (А–Я)</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="catalog-grid" id="catalog-grid"></div>
+
+    <p class="catalog-empty" id="catalog-empty" hidden>По выбранным фильтрам ничего не найдено. Попробуйте сбросить фильтры.</p>
+
+    <div class="catalog-more">
+      <a href="index.html" class="btn btn-dark btn-primary">← На главную</a>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer" id="contact">
+  <div class="footer-top">
+    <img src="assets/logo-symbol.png" class="footer-symbol" alt="Аллея">
+    <div class="footer-cols">
+      <div class="footer-col">
+        <p class="footer-col-title">Навигация</p>
+        <a href="catalog.html">Каталог</a>
+        <a href="index.html#about">О нас</a>
+        <a href="index.html#partners">Партнёры</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">Питомник</p>
+        <p>Ростов-на-Дону, Россия</p>
+        <p>По договорённости, Пн–Сб</p>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">Контакты</p>
+        <p>hello@alley-pitomnik.ru</p>
+        <p>+7 (863) 000-00-00</p>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Аллея. Все права защищены.</p>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js" integrity="sha384-O55L/6rhHr9CFvrxqv5luxOCcmVaBmETbZbJDP+Do8T0pztTACsFBD/IXCNkj7DV" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" integrity="sha384-g4NTh/Iv5PPU4xPyhEWqPcwtNXOvdaDI8LLnyYfyNZOjKJeYQyjzQ9X5275eBjpt" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" integrity="sha384-Z3REaz79l2IaAZqJsSABtTbhjgOUYyV3p90XNnAPCSHg3EMTz1fouunq9WZRtj3d" crossorigin="anonymous"></script>
+<script src="script.js"></script>
+<script src="catalog-data.js"></script>
+<script src="catalog-data-container.js"></script>
+<script src="products.js"></script>
+<script src="product-modal.js"></script>
+<script src="catalog.js"></script>
+<script src="cart.js"></script>
+<script src="i18n.js"></script>
+</body>
+</html>

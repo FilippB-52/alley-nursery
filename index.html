@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Аллея — питомник аллейно-парковых деревьев, Ростов-на-Дону</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="dome-gallery.css">
+<script>
+  // Start every load at the top; don't let the browser restore scroll or jump to a
+  // leftover #anchor. An anchor that was *asked for* (catalog.html#partners) is remembered
+  // in __deepLink and scrolled to by script.js once the page is laid out; the URL is cleaned
+  // either way so a later reload still opens at the top.
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  window.__deepLink = location.hash.length > 1 ? location.hash : '';
+  if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+
+  // The tree intro is a first-impression, not a toll gate: it plays on a first arrival and
+  // on an explicit reload, but not when you come back from another page of the site.
+  (function () {
+    var entry = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+    var reloaded = entry ? entry.type === 'reload'
+      : !!(performance.navigation && performance.navigation.type === 1);
+    var seen = false;
+    try { seen = sessionStorage.getItem('alleya.introSeen') === '1'; } catch (e) { /* private mode */ }
+    window.__playIntro = !window.__deepLink && (reloaded || !seen);
+    try { sessionStorage.setItem('alleya.introSeen', '1'); } catch (e) { /* private mode */ }
+    // Runs before body paints — hides hero elements so there is no flash of visible text.
+    if (window.__playIntro) document.documentElement.classList.add('intro-pending');
+  })();
+</script>
+<style>
+  .intro-pending .site-header,
+  .intro-pending .hero-content .eyebrow,
+  .intro-pending .hero-headline,
+  .intro-pending .hero-sub,
+  .intro-pending .hero-content .hero-actions,
+  .intro-pending .scroll-cue {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  /* scrim stays fully off (no transform) until the reveal, so the video plays clean */
+  .intro-pending .hero-scrim { opacity: 0; }
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<header class="site-header" id="site-header">
+  <a href="#" class="logo-link">
+    <img src="assets/logo-full.png" class="logo-img" alt="Аллея">
+  </a>
+  <nav class="main-nav">
+    <a href="catalog.html">Каталог</a>
+    <a href="#about">О нас</a>
+    <a href="#partners">Партнёры</a>
+    <a href="#contact">Контакты</a>
+  </nav>
+  <div class="header-actions">
+    <span class="locale-tag">РОСТОВ-НА-ДОНУ</span>
+    <div class="lang-switch" role="group" aria-label="Язык сайта">
+      <button class="lang-opt" type="button" data-lang="ru">RU</button>
+      <button class="lang-opt" type="button" data-lang="en">EN</button>
+    </div>
+    <button class="cart-btn" type="button" aria-label="Открыть корзину">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.2"/><circle cx="17" cy="20" r="1.2"/><path d="M3 4h2l2.1 11a1.5 1.5 0 0 0 1.5 1.2h7.6a1.5 1.5 0 0 0 1.5-1.2L21 8H6"/></svg>
+      <span class="cart-btn-count" data-cart-count hidden>0</span>
+    </button>
+  </div>
+</header>
+
+<section class="hero">
+  <video id="hero-intro-video" class="hero-video" autoplay muted playsinline poster="assets/tree-intro-poster.jpg">
+    <source src="assets/tree-intro.mp4" type="video/mp4">
+  </video>
+  <script>
+    // Returning to the landing page mid-visit: don't replay the growth. Dropping the source
+    // entirely leaves the poster on screen — which is the fully grown tree, the frame the
+    // animation ends on — and saves re-downloading the clip. Inline here so it runs the
+    // moment the element exists, before a frame of the sapling can be shown.
+    if (!window.__playIntro) {
+      (function (v) {
+        v.removeAttribute('autoplay');
+        v.pause();
+        while (v.firstElementChild) v.removeChild(v.firstElementChild);
+        v.removeAttribute('src');
+        v.preload = 'none';
+        v.load();
+      })(document.getElementById('hero-intro-video'));
+    }
+  </script>
+  <div class="hero-scrim"></div>
+  <div class="hero-content">
+    <p class="eyebrow">Питомник Аллея — Ростов-на-Дону</p>
+    <h1 class="hero-headline">Выращено<br>на века</h1>
+    <p class="hero-sub">Питомник аллейно-парковых деревьев и кустарников. Растения собственного выращивания и из Европы — для парков, аллей и частных садов.</p>
+    <div class="hero-actions">
+      <a href="#inventory" class="btn btn-primary">Каталог растений</a>
+      <a href="#about" class="btn btn-ghost">О питомнике</a>
+    </div>
+  </div>
+  <div class="scroll-cue"><span></span>Скролл</div>
+</section>
+
+<section class="intro" id="about">
+  <div class="intro-grid">
+    <div class="intro-left">
+      <p class="eyebrow eyebrow-dark">О нас</p>
+      <h2 class="intro-heading">Мы специализируемся на выращивании аллейно-парковых деревьев и кустарников.</h2>
+    </div>
+    <div class="intro-right">
+      <p>В ассортименте питомника представлен посадочный материал не только нашего собственного производства, но также и растения европейского происхождения, например, из Голландии и Италии. Опираясь на компетенции высококвалифицированных специалистов зелёной отрасли и внедряя европейские технологии выращивания, мы рады предлагать вам растения, которые соответствуют высшим стандартам качества.</p>
+      <a href="#inventory" class="text-link">Смотреть каталог →</a>
+    </div>
+  </div>
+</section>
+
+<section class="stats">
+  <svg class="ring-motif" viewBox="0 0 400 400" aria-hidden="true">
+    <circle cx="200" cy="200" r="40" />
+    <circle cx="200" cy="200" r="80" />
+    <circle cx="200" cy="200" r="120" />
+    <circle cx="200" cy="200" r="160" />
+    <circle cx="200" cy="200" r="198" />
+  </svg>
+  <p class="eyebrow">Питомник в цифрах</p>
+  <div class="stats-grid">
+    <div class="stat">
+      <span class="stat-number" data-target="57">0</span><span class="stat-suffix"> га</span>
+      <p class="stat-label">Площадь питомника</p>
+    </div>
+    <div class="stat">
+      <span class="stat-number" data-target="100000">0</span>
+      <p class="stat-label">Растений в ассортименте</p>
+    </div>
+    <div class="stat">
+      <span class="stat-number" data-target="7">0</span>
+      <p class="stat-label">Компаний-партнёров</p>
+    </div>
+  </div>
+</section>
+
+<section class="catalog" id="inventory">
+  <p class="eyebrow eyebrow-dark">Каталог</p>
+  <h2 class="catalog-heading">Деревья и кустарники для вашего проекта</h2>
+  <div class="cat-tabs" role="tablist" aria-label="Тип корневой системы">
+    <button class="cat-tab is-active" type="button" role="tab" data-segment="grunt">Грунтовые</button>
+    <button class="cat-tab" type="button" role="tab" data-segment="container">Контейнерные</button>
+  </div>
+  <div class="catalog-grid" data-seg-grid="grunt">
+    <article class="catalog-card">
+      <div class="catalog-media">
+        <img src="assets/trees/klen.jpg" alt="Клён" loading="lazy">
+        <span class="catalog-badge catalog-badge--hit">Хит продаж</span>
+      </div>
+      <div class="catalog-body">
+        <p class="catalog-cat">Аллейное</p>
+        <h3 class="catalog-name">Клён</h3>
+        <div class="catalog-foot">
+          <span class="catalog-price">от 9 000 ₽</span>
+          <button class="catalog-buy" type="button" aria-label="В корзину: Клён">
+            <svg class="i-cart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.2"/><circle cx="17" cy="20" r="1.2"/><path d="M3 4h2l2.1 11a1.5 1.5 0 0 0 1.5 1.2h7.6a1.5 1.5 0 0 0 1.5-1.2L21 8H6"/></svg>
+            <svg class="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg>
+          </button>
+        </div>
+      </div>
+    </article>
+    <article class="catalog-card">
+      <div class="catalog-media">
+        <img src="assets/trees/bereza.jpg" alt="Берёза" loading="lazy">
+      </div>
+      <div class="catalog-body">
+        <p class="catalog-cat">Парковое</p>
+        <h3 class="catalog-name">Берёза</h3>
+        <div class="catalog-foot">
+          <span class="catalog-price">от 8 000 ₽</span>
+          <button class="catalog-buy" type="button" aria-label="В корзину: Берёза">
+            <svg class="i-cart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.2"/><circle cx="17" cy="20" r="1.2"/><path d="M3 4h2l2.1 11a1.5 1.5 0 0 0 1.5 1.2h7.6a1.5 1.5 0 0 0 1.5-1.2L21 8H6"/></svg>
+            <svg class="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg>
+          </button>
+        </div>
+      </div>
+    </article>
+    <article class="catalog-card">
+      <div class="catalog-media">
+        <img src="assets/trees/yablonya.jpg" alt="Яблоня" loading="lazy">
+        <span class="catalog-badge catalog-badge--sale">Скидка</span>
+      </div>
+      <div class="catalog-body">
+        <p class="catalog-cat">Плодовое</p>
+        <h3 class="catalog-name">Яблоня</h3>
+        <div class="catalog-foot">
+          <span class="catalog-price">от 9 000 ₽</span>
+          <button class="catalog-buy" type="button" aria-label="В корзину: Яблоня">
+            <svg class="i-cart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.2"/><circle cx="17" cy="20" r="1.2"/><path d="M3 4h2l2.1 11a1.5 1.5 0 0 0 1.5 1.2h7.6a1.5 1.5 0 0 0 1.5-1.2L21 8H6"/></svg>
+            <svg class="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg>
+          </button>
+        </div>
+      </div>
+    </article>
+    <article class="catalog-card">
+      <div class="catalog-media">
+        <img src="assets/trees/boyaryshnik.jpg" alt="Боярышник" loading="lazy">
+      </div>
+      <div class="catalog-body">
+        <p class="catalog-cat">Декоративное</p>
+        <h3 class="catalog-name">Боярышник</h3>
+        <div class="catalog-foot">
+          <span class="catalog-price">от 9 000 ₽</span>
+          <button class="catalog-buy" type="button" aria-label="В корзину: Боярышник">
+            <svg class="i-cart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.2"/><circle cx="17" cy="20" r="1.2"/><path d="M3 4h2l2.1 11a1.5 1.5 0 0 0 1.5 1.2h7.6a1.5 1.5 0 0 0 1.5-1.2L21 8H6"/></svg>
+            <svg class="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg>
+          </button>
+        </div>
+      </div>
+    </article>
+    <article class="catalog-card">
+      <div class="catalog-media">
+        <img src="assets/trees/vishnya.jpg" alt="Вишня" loading="lazy">
+      </div>
+      <div class="catalog-body">
+        <p class="catalog-cat">Декоративное</p>
+        <h3 class="catalog-name">Вишня</h3>
+        <div class="catalog-foot">
+          <span class="catalog-price">от 9 000 ₽</span>
+          <button class="catalog-buy" type="button" aria-label="В корзину: Вишня">
+            <svg class="i-cart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.2"/><circle cx="17" cy="20" r="1.2"/><path d="M3 4h2l2.1 11a1.5 1.5 0 0 0 1.5 1.2h7.6a1.5 1.5 0 0 0 1.5-1.2L21 8H6"/></svg>
+            <svg class="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg>
+          </button>
+        </div>
+      </div>
+    </article>
+    <article class="catalog-card">
+      <div class="catalog-media">
+        <img src="assets/trees/vyaz.jpg" alt="Вяз" loading="lazy">
+      </div>
+      <div class="catalog-body">
+        <p class="catalog-cat">Аллейное</p>
+        <h3 class="catalog-name">Вяз</h3>
+        <div class="catalog-foot">
+          <span class="catalog-price">от 12 000 ₽</span>
+          <button class="catalog-buy" type="button" aria-label="В корзину: Вяз">
+            <svg class="i-cart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.2"/><circle cx="17" cy="20" r="1.2"/><path d="M3 4h2l2.1 11a1.5 1.5 0 0 0 1.5 1.2h7.6a1.5 1.5 0 0 0 1.5-1.2L21 8H6"/></svg>
+            <svg class="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg>
+          </button>
+        </div>
+      </div>
+    </article>
+    <article class="catalog-card">
+      <div class="catalog-media">
+        <img src="assets/trees/iva.jpg" alt="Ива" loading="lazy">
+        <span class="catalog-badge catalog-badge--sale">Скидка</span>
+      </div>
+      <div class="catalog-body">
+        <p class="catalog-cat">Декоративное</p>
+        <h3 class="catalog-name">Ива</h3>
+        <div class="catalog-foot">
+          <span class="catalog-price">от 3 000 ₽</span>
+          <button class="catalog-buy" type="button" aria-label="В корзину: Ива">
+            <svg class="i-cart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.2"/><circle cx="17" cy="20" r="1.2"/><path d="M3 4h2l2.1 11a1.5 1.5 0 0 0 1.5 1.2h7.6a1.5 1.5 0 0 0 1.5-1.2L21 8H6"/></svg>
+            <svg class="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg>
+          </button>
+        </div>
+      </div>
+    </article>
+    <article class="catalog-card">
+      <div class="catalog-media">
+        <img src="assets/trees/lipa.jpg" alt="Липа" loading="lazy">
+        <span class="catalog-badge catalog-badge--hit">Хит продаж</span>
+      </div>
+      <div class="catalog-body">
+        <p class="catalog-cat">Аллейное</p>
+        <h3 class="catalog-name">Липа</h3>
+        <div class="catalog-foot">
+          <span class="catalog-price">от 15 000 ₽</span>
+          <button class="catalog-buy" type="button" aria-label="В корзину: Липа">
+            <svg class="i-cart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.2"/><circle cx="17" cy="20" r="1.2"/><path d="M3 4h2l2.1 11a1.5 1.5 0 0 0 1.5 1.2h7.6a1.5 1.5 0 0 0 1.5-1.2L21 8H6"/></svg>
+            <svg class="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg>
+          </button>
+        </div>
+      </div>
+    </article>
+  </div>
+  <div class="catalog-grid" data-seg-grid="container" hidden>
+    <article class="catalog-card" data-product="c-klen-ostrolistnyy">
+      <div class="catalog-media catalog-media--ph">
+        <div class="ph-inner"><svg class="ph-leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M11 21c-5 0-9-4-9-9 5 0 9 1 11 5"/><path d="M20 4C10 4 5 9 5 17c8 0 15-4 15-13z"/><path d="M12 15c2-3 5-5 8-6"/></svg><span class="ph-label">Фото скоро</span></div>
+      </div>
+      <div class="catalog-body">
+        <p class="catalog-cat">Лиственное дерево</p>
+        <h3 class="catalog-name">Клён остролистный</h3>
+        <div class="catalog-foot">
+          <span class="catalog-price">от 20 000 ₽</span>
+          <button class="catalog-buy" type="button" aria-label="В корзину: Клён остролистный">
+            <svg class="i-cart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.2"/><circle cx="17" cy="20" r="1.2"/><path d="M3 4h2l2.1 11a1.5 1.5 0 0 0 1.5 1.2h7.6a1.5 1.5 0 0 0 1.5-1.2L21 8H6"/></svg>
+            <svg class="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg>
+          </button>
+        </div>
+      </div>
+    </article>
+    <article class="catalog-card" data-product="c-dub-krasnyy">
+      <div class="catalog-media catalog-media--ph">
+        <div class="ph-inner"><svg class="ph-leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M11 21c-5 0-9-4-9-9 5 0 9 1 11 5"/><path d="M20 4C10 4 5 9 5 17c8 0 15-4 15-13z"/><path d="M12 15c2-3 5-5 8-6"/></svg><span class="ph-label">Фото скоро</span></div>
+      </div>
+      <div class="catalog-body">
+        <p class="catalog-cat">Лиственное дерево</p>
+        <h3 class="catalog-name">Дуб красный</h3>
+        <div class="catalog-foot">
+          <span class="catalog-price">от 65 000 ₽</span>
+          <button class="catalog-buy" type="button" aria-label="В корзину: Дуб красный">
+            <svg class="i-cart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.2"/><circle cx="17" cy="20" r="1.2"/><path d="M3 4h2l2.1 11a1.5 1.5 0 0 0 1.5 1.2h7.6a1.5 1.5 0 0 0 1.5-1.2L21 8H6"/></svg>
+            <svg class="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg>
+          </button>
+        </div>
+      </div>
+    </article>
+    <article class="catalog-card" data-product="c-sakura-melkopilchataya">
+      <div class="catalog-media catalog-media--ph">
+        <div class="ph-inner"><svg class="ph-leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M11 21c-5 0-9-4-9-9 5 0 9 1 11 5"/><path d="M20 4C10 4 5 9 5 17c8 0 15-4 15-13z"/><path d="M12 15c2-3 5-5 8-6"/></svg><span class="ph-label">Фото скоро</span></div>
+      </div>
+      <div class="catalog-body">
+        <p class="catalog-cat">Лиственное дерево</p>
+        <h3 class="catalog-name">Сакура мелкопильчатая</h3>
+        <div class="catalog-foot">
+          <span class="catalog-price">от 45 000 ₽</span>
+          <button class="catalog-buy" type="button" aria-label="В корзину: Сакура мелкопильчатая">
+            <svg class="i-cart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.2"/><circle cx="17" cy="20" r="1.2"/><path d="M3 4h2l2.1 11a1.5 1.5 0 0 0 1.5 1.2h7.6a1.5 1.5 0 0 0 1.5-1.2L21 8H6"/></svg>
+            <svg class="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg>
+          </button>
+        </div>
+      </div>
+    </article>
+    <article class="catalog-card" data-product="c-lipa-krupnolistnaya">
+      <div class="catalog-media catalog-media--ph">
+        <div class="ph-inner"><svg class="ph-leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M11 21c-5 0-9-4-9-9 5 0 9 1 11 5"/><path d="M20 4C10 4 5 9 5 17c8 0 15-4 15-13z"/><path d="M12 15c2-3 5-5 8-6"/></svg><span class="ph-label">Фото скоро</span></div>
+      </div>
+      <div class="catalog-body">
+        <p class="catalog-cat">Лиственное дерево</p>
+        <h3 class="catalog-name">Липа крупнолистная</h3>
+        <div class="catalog-foot">
+          <span class="catalog-price">от 65 000 ₽</span>
+          <button class="catalog-buy" type="button" aria-label="В корзину: Липа крупнолистная">
+            <svg class="i-cart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.2"/><circle cx="17" cy="20" r="1.2"/><path d="M3 4h2l2.1 11a1.5 1.5 0 0 0 1.5 1.2h7.6a1.5 1.5 0 0 0 1.5-1.2L21 8H6"/></svg>
+            <svg class="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg>
+          </button>
+        </div>
+      </div>
+    </article>
+    <article class="catalog-card" data-product="c-tuya">
+      <div class="catalog-media catalog-media--ph">
+        <div class="ph-inner"><svg class="ph-leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M11 21c-5 0-9-4-9-9 5 0 9 1 11 5"/><path d="M20 4C10 4 5 9 5 17c8 0 15-4 15-13z"/><path d="M12 15c2-3 5-5 8-6"/></svg><span class="ph-label">Фото скоро</span></div>
+      </div>
+      <div class="catalog-body">
+        <p class="catalog-cat">Живая изгородь</p>
+        <h3 class="catalog-name">Туя «Brabant»</h3>
+        <div class="catalog-foot">
+          <span class="catalog-price">от 11 700 ₽</span>
+          <button class="catalog-buy" type="button" aria-label="В корзину: Туя Brabant">
+            <svg class="i-cart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.2"/><circle cx="17" cy="20" r="1.2"/><path d="M3 4h2l2.1 11a1.5 1.5 0 0 0 1.5 1.2h7.6a1.5 1.5 0 0 0 1.5-1.2L21 8H6"/></svg>
+            <svg class="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg>
+          </button>
+        </div>
+      </div>
+    </article>
+    <article class="catalog-card" data-product="c-deren-belyy">
+      <div class="catalog-media catalog-media--ph">
+        <div class="ph-inner"><svg class="ph-leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M11 21c-5 0-9-4-9-9 5 0 9 1 11 5"/><path d="M20 4C10 4 5 9 5 17c8 0 15-4 15-13z"/><path d="M12 15c2-3 5-5 8-6"/></svg><span class="ph-label">Фото скоро</span></div>
+      </div>
+      <div class="catalog-body">
+        <p class="catalog-cat">Живая изгородь</p>
+        <h3 class="catalog-name">Дёрен белый «Aurea»</h3>
+        <div class="catalog-foot">
+          <span class="catalog-price">от 11 700 ₽</span>
+          <button class="catalog-buy" type="button" aria-label="В корзину: Дёрен белый Aurea">
+            <svg class="i-cart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.2"/><circle cx="17" cy="20" r="1.2"/><path d="M3 4h2l2.1 11a1.5 1.5 0 0 0 1.5 1.2h7.6a1.5 1.5 0 0 0 1.5-1.2L21 8H6"/></svg>
+            <svg class="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg>
+          </button>
+        </div>
+      </div>
+    </article>
+  </div>
+  <div class="catalog-more">
+    <a href="catalog.html" class="btn btn-dark btn-primary" id="home-catalog-more">Открыть полный каталог</a>
+  </div>
+</section>
+
+<section class="geography">
+  <p class="eyebrow">Где растут наши деревья</p>
+  <h2 class="geography-heading">География продаж</h2>
+  <p class="geography-sub">Поставляем посадочный материал заказчикам по всей европейской части России — от Москвы до Крыма.</p>
+  <div class="geography-map">
+    <div class="geo-map">
+      <div class="geo-media">
+        <img class="geo-img geo-base" src="assets/sales-map-relief.jpg" alt="Карта географии продаж — европейская часть России" loading="lazy">
+        <img class="geo-img geo-mute" src="assets/sales-map-relief.jpg" alt="" aria-hidden="true" loading="lazy">
+      </div>
+      <button class="geo-pin" type="button" style="left:37.08%;top:15.09%" aria-label="Москва"><span class="geo-dot"></span><span class="geo-pin-label">Москва</span></button>
+      <button class="geo-pin" type="button" style="left:57.15%;top:11.65%" aria-label="Нижний Новгород"><span class="geo-dot"></span><span class="geo-pin-label">Нижний Новгород</span></button>
+      <button class="geo-pin" type="button" style="left:43.56%;top:24.09%" aria-label="Рязань"><span class="geo-dot"></span><span class="geo-pin-label">Рязань</span></button>
+      <button class="geo-pin" type="button" style="left:36.45%;top:26.82%" aria-label="Тула"><span class="geo-dot"></span><span class="geo-pin-label">Тула</span></button>
+      <button class="geo-pin" type="button" style="left:41.02%;top:46.32%" aria-label="Воронеж"><span class="geo-dot"></span><span class="geo-pin-label">Воронеж</span></button>
+      <button class="geo-pin" type="button" style="left:42.63%;top:39.25%" aria-label="Липецк"><span class="geo-dot"></span><span class="geo-pin-label">Липецк</span></button>
+      <button class="geo-pin" type="button" style="left:49.03%;top:38.66%" aria-label="Тамбов"><span class="geo-dot"></span><span class="geo-pin-label">Тамбов</span></button>
+      <button class="geo-pin" type="button" style="left:31.35%;top:53.51%" aria-label="Белгород"><span class="geo-dot"></span><span class="geo-pin-label">Белгород</span></button>
+      <button class="geo-pin" type="button" style="left:30.5%;top:44.82%" aria-label="Курск"><span class="geo-dot"></span><span class="geo-pin-label">Курск</span></button>
+      <button class="geo-pin" type="button" style="left:60.18%;top:68.78%" aria-label="Волгоград"><span class="geo-dot"></span><span class="geo-pin-label">Волгоград</span></button>
+      <button class="geo-pin geo-pin--hq" type="button" style="left:41.82%;top:79.72%" aria-label="Ростов-на-Дону"><span class="geo-dot"></span><span class="geo-pin-label">Ростов-на-Дону</span></button>
+      <button class="geo-pin" type="button" style="left:38.44%;top:96.06%" aria-label="Краснодар"><span class="geo-dot"></span><span class="geo-pin-label">Краснодар</span></button>
+      <button class="geo-pin" type="button" style="left:50.49%;top:96.45%" aria-label="Ставрополь"><span class="geo-dot"></span><span class="geo-pin-label">Ставрополь</span></button>
+      <button class="geo-pin" type="button" style="left:18.84%;top:94.47%" aria-label="Симферополь"><span class="geo-dot"></span><span class="geo-pin-label">Симферополь</span></button>
+    </div>
+    <p class="geo-credit">Рельефная основа: Wikimedia Commons · CC BY-SA 4.0</p>
+  </div>
+</section>
+
+<section class="partners" id="partners">
+  <p class="eyebrow">Проверенные специалисты</p>
+  <h2 class="partners-heading">Мы работаем с лучшими в отрасли</h2>
+  <p class="partners-sub">Рекомендуем партнёров для проектирования, благоустройства и ухода за вашим садом.</p>
+  <div class="partners-grid">
+    <div class="partner-card">
+      <p class="partner-name">Решетова Яна</p>
+      <p class="partner-role">Ландшафтный архитектор</p>
+    <div class="partner-gallery" data-count="6">
+      <div class="pg-frame">
+        <img class="pg-slide is-active" src="assets/partners/reshetova/1.jpg" alt="Решетова Яна — фото 1" loading="lazy">
+        <img class="pg-slide" src="assets/partners/reshetova/2.jpg" alt="Решетова Яна — фото 2" loading="lazy">
+        <img class="pg-slide" src="assets/partners/reshetova/3.jpg" alt="Решетова Яна — фото 3" loading="lazy">
+        <img class="pg-slide" src="assets/partners/reshetova/4.jpg" alt="Решетова Яна — фото 4" loading="lazy">
+        <img class="pg-slide" src="assets/partners/reshetova/5.jpg" alt="Решетова Яна — фото 5" loading="lazy">
+        <img class="pg-slide" src="assets/partners/reshetova/6.jpg" alt="Решетова Яна — фото 6" loading="lazy">
+      </div>
+    </div>
+      <p class="partner-desc">Современные сады с индивидуальным подходом к каждому заказчику. 8 лет в ландшафтном дизайне, образование — Академия архитектуры и искусств ЮФУ.</p>
+      <p class="partner-price">Озеленение до 3 соток — от 10 000 ₽ · Проект сада — от 6 000 ₽/сотка</p>
+    </div>
+    <div class="partner-card">
+      <p class="partner-name">ODU Topiary Education</p>
+      <p class="partner-role">Школа топиарной стрижки и уходу за растениями</p>
+    <div class="partner-gallery" data-count="5">
+      <div class="pg-frame">
+        <img class="pg-slide is-active" src="assets/partners/odu/1.jpg" alt="ODU Topiary Education — фото 1" loading="lazy">
+        <img class="pg-slide" src="assets/partners/odu/2.jpg" alt="ODU Topiary Education — фото 2" loading="lazy">
+        <img class="pg-slide" src="assets/partners/odu/3.jpg" alt="ODU Topiary Education — фото 3" loading="lazy">
+        <img class="pg-slide" src="assets/partners/odu/4.jpg" alt="ODU Topiary Education — фото 4" loading="lazy">
+        <img class="pg-slide" src="assets/partners/odu/5.jpg" alt="ODU Topiary Education — фото 5" loading="lazy">
+      </div>
+    </div>
+      <p class="partner-desc">Теория и практика от ведущих мастеров зелёной отрасли: топиарная стрижка, дендрология, садоводство, проектирование и уходные работы.</p>
+      <p class="partner-price">topiaryeducation.ru</p>
+    </div>
+    <div class="partner-card">
+      <p class="partner-name">Greenаura</p>
+      <p class="partner-role">Ландшафтная компания полного цикла</p>
+    <div class="partner-gallery" data-count="5">
+      <div class="pg-frame">
+        <img class="pg-slide is-active" src="assets/partners/greenaura/1.jpg" alt="Greenаura — фото 1" loading="lazy">
+        <img class="pg-slide" src="assets/partners/greenaura/2.jpg" alt="Greenаura — фото 2" loading="lazy">
+        <img class="pg-slide" src="assets/partners/greenaura/3.jpg" alt="Greenаura — фото 3" loading="lazy">
+        <img class="pg-slide" src="assets/partners/greenaura/4.jpg" alt="Greenаura — фото 4" loading="lazy">
+        <img class="pg-slide" src="assets/partners/greenaura/5.jpg" alt="Greenаura — фото 5" loading="lazy">
+      </div>
+    </div>
+      <p class="partner-desc">Частные сады и благоустройство придомовых территорий — от дизайн-проекта и визуализации до строительства и комплексного ухода. Основатели: Вера Стрелкова и Ольга Чеботарёва.</p>
+      <p class="partner-price">Консультация — 3 000–5 000 ₽ · Предоплата 50%</p>
+    </div>
+    <div class="partner-card">
+      <p class="partner-name">Ольга Еремеева</p>
+      <p class="partner-role">Руководитель «Ландшафтной мастерской Александра Толоконникова»</p>
+    <div class="partner-gallery" data-count="10">
+      <div class="pg-frame">
+        <img class="pg-slide is-active" src="assets/partners/eremeeva/1.jpg" alt="Ольга Еремеева — фото 1" loading="lazy">
+        <img class="pg-slide" src="assets/partners/eremeeva/2.jpg" alt="Ольга Еремеева — фото 2" loading="lazy">
+        <img class="pg-slide" src="assets/partners/eremeeva/3.jpg" alt="Ольга Еремеева — фото 3" loading="lazy">
+        <img class="pg-slide" src="assets/partners/eremeeva/4.jpg" alt="Ольга Еремеева — фото 4" loading="lazy">
+        <img class="pg-slide" src="assets/partners/eremeeva/5.jpg" alt="Ольга Еремеева — фото 5" loading="lazy">
+        <img class="pg-slide" src="assets/partners/eremeeva/6.jpg" alt="Ольга Еремеева — фото 6" loading="lazy">
+        <img class="pg-slide" src="assets/partners/eremeeva/7.jpg" alt="Ольга Еремеева — фото 7" loading="lazy">
+        <img class="pg-slide" src="assets/partners/eremeeva/8.jpg" alt="Ольга Еремеева — фото 8" loading="lazy">
+        <img class="pg-slide" src="assets/partners/eremeeva/9.jpg" alt="Ольга Еремеева — фото 9" loading="lazy">
+        <img class="pg-slide" src="assets/partners/eremeeva/10.jpg" alt="Ольга Еремеева — фото 10" loading="lazy">
+      </div>
+    </div>
+      <p class="partner-desc">Строительство и развитие садов и парков, частные ландшафтные и интерьерные проекты озеленения. 7 лет опыта.</p>
+      <p class="partner-price">Консультация — 5 000 ₽ · Проектирование — 10 000 ₽/сотка · Уход — 5 000 ₽/выход</p>
+    </div>
+  </div>
+</section>
+
+<section class="vtestimonials" id="video-reviews">
+  <div class="vt-head">
+    <p class="eyebrow">Видео-отзывы</p>
+    <h2 class="vt-heading">Что говорят о питомнике «Аллея»?</h2>
+    <p class="vt-sub">Живые впечатления клиентов — прямо с YouTube.</p>
+  </div>
+  <div class="vt-grid">
+    <button class="vt-frame" type="button" data-yt="C-NeT31Mu_g" data-start="3" aria-label="Смотреть видео-отзыв о питомнике «Аллея»">
+      <img class="vt-thumb" src="https://i.ytimg.com/vi/C-NeT31Mu_g/maxresdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/C-NeT31Mu_g/hqdefault.jpg'" alt="Видео-отзыв о питомнике «Аллея»" loading="lazy">
+      <span class="vt-play" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M8 5.5v13l11-6.5-11-6.5z"/></svg>
+      </span>
+    </button>
+    <button class="vt-frame" type="button" data-yt="2FN0bXkl-jY" data-start="7" aria-label="Смотреть видео-отзыв о питомнике «Аллея»">
+      <img class="vt-thumb" src="https://i.ytimg.com/vi/2FN0bXkl-jY/maxresdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/2FN0bXkl-jY/hqdefault.jpg'" alt="Видео-отзыв о питомнике «Аллея»" loading="lazy">
+      <span class="vt-play" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M8 5.5v13l11-6.5-11-6.5z"/></svg>
+      </span>
+    </button>
+  </div>
+</section>
+
+<section class="testimonials" id="testimonials">
+  <div class="tm-head">
+    <p class="eyebrow eyebrow-dark">Отзывы</p>
+    <h2 class="tm-heading">Что говорят о питомнике «Аллея»</h2>
+  </div>
+  <div class="tm-viewport">
+    <div class="tm-track">
+        <div class="tm-col">
+          <article class="tm-card">
+            <div class="tm-inner">
+              <div class="tm-top">
+                <div class="tm-stars" aria-label="Оценка 5 из 5">★★★★★</div>
+                <span class="tm-quote" aria-hidden="true">”</span>
+              </div>
+              <p class="tm-text">Остролистный клён от «Аллеи» — почти 3,5 метра в высоту! Глаза разбегались, хотела вывезти оттуда всё. Проще участок перевезти к ним в питомник.</p>
+              <div class="tm-divider"></div>
+              <div class="tm-author">
+                <span class="tm-av" style="background:#e07b39">Ю</span>
+                <span class="tm-who"><span class="tm-name">Юлия</span><span class="tm-source">Instagram</span></span>
+              </div>
+            </div>
+          </article>
+          <article class="tm-card">
+            <div class="tm-inner">
+              <div class="tm-top">
+                <div class="tm-stars" aria-label="Оценка 5 из 5">★★★★★</div>
+                <span class="tm-quote" aria-hidden="true">”</span>
+              </div>
+              <p class="tm-text">Огромное спасибо управляющей Насте и агроному Евгению за прогулку по «Аллее». Штамбы высокие, деревья полны здоровья и сил. Отличный настрой и потенциал!</p>
+              <div class="tm-divider"></div>
+              <div class="tm-author">
+                <span class="tm-av" style="background:#2e86de">М</span>
+                <span class="tm-who"><span class="tm-name">Мария Л.</span><span class="tm-source">Telegram</span></span>
+              </div>
+            </div>
+          </article>
+        </div>
+        <div class="tm-col">
+          <article class="tm-card">
+            <div class="tm-inner">
+              <div class="tm-top">
+                <div class="tm-stars" aria-label="Оценка 5 из 5">★★★★★</div>
+                <span class="tm-quote" aria-hidden="true">”</span>
+              </div>
+              <p class="tm-text">Есть выбор сакур, порадовали. Ребята молодцы!</p>
+              <div class="tm-divider"></div>
+              <div class="tm-author">
+                <span class="tm-av" style="background:#e58e26">А</span>
+                <span class="tm-who"><span class="tm-name">Алексей Шляхов</span><span class="tm-source">Яндекс Карты</span></span>
+              </div>
+            </div>
+          </article>
+          <article class="tm-card">
+            <div class="tm-inner">
+              <div class="tm-top">
+                <div class="tm-stars" aria-label="Оценка 5 из 5">★★★★★</div>
+                <span class="tm-quote" aria-hidden="true">”</span>
+              </div>
+              <p class="tm-text">Посадочный материал «Аллеи» поражает исключительными декоративными свойствами. Удобно, что есть доставка и советы по уходу. Покупка приятная и быстрая.</p>
+              <div class="tm-divider"></div>
+              <div class="tm-author">
+                <span class="tm-av" style="background:#8e5bb5">В</span>
+                <span class="tm-who"><span class="tm-name">Варвара Березина</span><span class="tm-source">Отзыв</span></span>
+              </div>
+            </div>
+          </article>
+        </div>
+        <div class="tm-col">
+          <article class="tm-card">
+            <div class="tm-inner">
+              <div class="tm-top">
+                <div class="tm-stars" aria-label="Оценка 5 из 5">★★★★★</div>
+                <span class="tm-quote" aria-hidden="true">”</span>
+              </div>
+              <p class="tm-text">Спасибо, отличный материал. Был с детьми, поэтому не отбирал. Обязательно будем у вас!</p>
+              <div class="tm-divider"></div>
+              <div class="tm-author">
+                <span class="tm-av" style="background:#16a085">П</span>
+                <span class="tm-who"><span class="tm-name">Покупатель</span><span class="tm-source">Telegram</span></span>
+              </div>
+            </div>
+          </article>
+          <article class="tm-card">
+            <div class="tm-inner">
+              <div class="tm-top">
+                <div class="tm-stars" aria-label="Оценка 5 из 5">★★★★★</div>
+                <span class="tm-quote" aria-hidden="true">”</span>
+              </div>
+              <p class="tm-text">Хороший питомник — только там нашёл иву 4 метра. Упаковали, погрузили, всё отлично. Советую!</p>
+              <div class="tm-divider"></div>
+              <div class="tm-author">
+                <span class="tm-av" style="background:#4a69bd">А</span>
+                <span class="tm-who"><span class="tm-name">Артём</span><span class="tm-source">Яндекс Карты</span></span>
+              </div>
+            </div>
+          </article>
+        </div>
+        <div class="tm-col">
+          <article class="tm-card">
+            <div class="tm-inner">
+              <div class="tm-top">
+                <div class="tm-stars" aria-label="Оценка 5 из 5">★★★★★</div>
+                <span class="tm-quote" aria-hidden="true">”</span>
+              </div>
+              <p class="tm-text">Супер, ребята — мастера своего дела, хороший выбор! Удобное расположение.</p>
+              <div class="tm-divider"></div>
+              <div class="tm-author">
+                <span class="tm-av" style="background:#27ae60">С</span>
+                <span class="tm-who"><span class="tm-name">Сергей К.</span><span class="tm-source">Яндекс Карты</span></span>
+              </div>
+            </div>
+          </article>
+          <article class="tm-card">
+            <div class="tm-inner">
+              <div class="tm-top">
+                <div class="tm-stars" aria-label="Оценка 5 из 5">★★★★★</div>
+                <span class="tm-quote" aria-hidden="true">”</span>
+              </div>
+              <p class="tm-text">Всё отлично, общение и подбор грамотный. Брал клён остролистный «Royal Red».</p>
+              <div class="tm-divider"></div>
+              <div class="tm-author">
+                <span class="tm-av" style="background:#e0559a">А</span>
+                <span class="tm-who"><span class="tm-name">Александр</span><span class="tm-source">Яндекс Карты</span></span>
+              </div>
+            </div>
+          </article>
+        </div>
+    </div>
+  </div>
+  <div class="tm-nav">
+    <button class="tm-arrow tm-prev" type="button" aria-label="Предыдущие отзывы">&#8592;</button>
+    <button class="tm-arrow tm-next" type="button" aria-label="Следующие отзывы">&#8594;</button>
+  </div>
+</section>
+
+<section class="gallery" id="gallery">
+  <div class="gallery-head">
+    <p class="eyebrow">Галерея</p>
+    <h2 class="gallery-heading">Питомник «Аллея» вживую</h2>
+    <p class="gallery-sub">Перетащите, чтобы вращать. Нажмите на снимок, чтобы рассмотреть.</p>
+  </div>
+  <div class="dome-wrap" id="dome-gallery"></div>
+</section>
+
+<section class="cta" id="cta">
+  <div class="cta-aurora" id="cta-aurora" aria-hidden="true"></div>
+  <div class="cta-inner">
+    <h2 class="cta-heading">Ваша аллея<br>начинается здесь.</h2>
+    <div class="hero-actions">
+      <a href="#inventory" class="btn btn-primary">Начать заказ</a>
+      <a href="#contact" class="btn btn-ghost">Приехать в питомник</a>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer" id="contact">
+  <div class="footer-top">
+    <img src="assets/logo-symbol.png" class="footer-symbol" alt="Аллея">
+    <div class="footer-cols">
+      <div class="footer-col">
+        <p class="footer-col-title">Навигация</p>
+        <a href="catalog.html">Каталог</a>
+        <a href="#about">О нас</a>
+        <a href="#partners">Партнёры</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">Питомник</p>
+        <p>Ростов-на-Дону, Россия</p>
+        <p>По договорённости, Пн–Сб</p>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">Контакты</p>
+        <p>hello@alley-pitomnik.ru</p>
+        <p>+7 (863) 000-00-00</p>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Аллея. Все права защищены.</p>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js" integrity="sha384-O55L/6rhHr9CFvrxqv5luxOCcmVaBmETbZbJDP+Do8T0pztTACsFBD/IXCNkj7DV" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" integrity="sha384-g4NTh/Iv5PPU4xPyhEWqPcwtNXOvdaDI8LLnyYfyNZOjKJeYQyjzQ9X5275eBjpt" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" integrity="sha384-Z3REaz79l2IaAZqJsSABtTbhjgOUYyV3p90XNnAPCSHg3EMTz1fouunq9WZRtj3d" crossorigin="anonymous"></script>
+<script src="script.js"></script>
+<script src="catalog-data.js"></script>
+<script src="catalog-data-container.js"></script>
+<script src="products.js"></script>
+<script src="product-modal.js"></script>
+<script>
+  // Landing catalog segment toggle: Грунтовые <-> Контейнерные (two static preview grids).
+  (function () {
+    const tabs = document.querySelector('.catalog .cat-tabs');
+    if (!tabs) return;
+    const grids = document.querySelectorAll('.catalog [data-seg-grid]');
+    const more = document.getElementById('home-catalog-more');
+    tabs.querySelectorAll('.cat-tab[data-segment]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const seg = btn.dataset.segment;
+        tabs.querySelectorAll('.cat-tab').forEach((b) => b.classList.toggle('is-active', b === btn));
+        grids.forEach((g) => (g.hidden = g.dataset.segGrid !== seg));
+        if (more) more.href = seg === 'container' ? 'catalog.html#container' : 'catalog.html';
+      });
+    });
+  })();
+</script>
+<script src="soft-aurora.js"></script>
+<script src="dome-gallery.js"></script>
+<script>
+  initDomeGallery(document.getElementById('dome-gallery'), {
+    images: [
+      'assets/gallery/1.jpg', 'assets/gallery/2.jpg', 'assets/gallery/3.jpg',
+      'assets/gallery/4.jpg', 'assets/gallery/5.jpg', 'assets/gallery/6.jpg',
+      'assets/gallery/7.jpg', 'assets/gallery/8.jpg', 'assets/gallery/9.jpg',
+      'assets/gallery/10.jpg', 'assets/gallery/11.jpg'
+    ],
+    fit: 0.75,
+    minRadius: 800,
+    segments: 28,
+    dragDampening: 2.6,
+    grayscale: false,
+    overlayBlurColor: '#232c1c'
+  });
+</script>
+
+<!-- Lead-capture popup for pros (озеленители / садоводы) — opens on first scroll -->
+<div class="lead-pop" id="lead-pop" hidden aria-hidden="true">
+  <div class="lead-pop-dialog" role="dialog" aria-modal="true" aria-labelledby="lead-pop-title">
+    <button class="lead-pop-close" type="button" id="lead-pop-close" aria-label="Закрыть">&times;</button>
+    <div class="lead-pop-media">
+      <img src="assets/popup-cover.png" alt="Ландшафтный парк, озеленение от питомника Аллея" loading="lazy">
+    </div>
+    <div class="lead-pop-body">
+      <div class="lead-pop-form-view" id="lead-pop-form-view">
+        <p class="lead-pop-eyebrow">Только для профессионалов</p>
+        <h2 class="lead-pop-title" id="lead-pop-title">Особые условия для озеленителей и садоводов</h2>
+        <p class="lead-pop-sub"><strong class="lead-pop-hl">Скидка до 15%</strong> для профессионалов зелёной отрасли. Оставьте почту — менеджер свяжется с вами, уточнит детали и подтвердит <strong>ваши особые условия</strong>.</p>
+        <form class="lead-pop-form" id="lead-pop-form" novalidate>
+          <input class="lead-pop-input" id="lead-pop-email" type="email" name="email" placeholder="Ваш e-mail" autocomplete="email" required>
+          <button class="btn btn-dark btn-primary lead-pop-submit" type="submit">Получить условия</button>
+        </form>
+        <button class="lead-pop-dismiss" type="button" id="lead-pop-dismiss">Нет, спасибо</button>
+        <p class="lead-pop-fine">Мы не передаём вашу почту третьим лицам.</p>
+      </div>
+      <div class="lead-pop-done-view" id="lead-pop-done-view" hidden>
+        <div class="lead-pop-check" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg>
+        </div>
+        <h2 class="lead-pop-title">Спасибо! Мы свяжемся с вами.</h2>
+        <p class="lead-pop-sub">Менеджер напишет на указанную почту, чтобы подтвердить условия для профессионалов зелёной отрасли.</p>
+        <button class="btn btn-dark btn-primary lead-pop-submit" type="button" id="lead-pop-done-close">Закрыть</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="popup.js"></script>
+<script src="cart.js"></script>
+<script src="i18n.js"></script>
+</body>
+</html>

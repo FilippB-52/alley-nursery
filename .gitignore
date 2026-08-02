@@ -1,0 +1,35 @@
+# macOS
+.DS_Store
+
+# Source material — originals kept locally, the site uses the copies in assets/
+Alley Pitomnik Assets/
+Alley Testimonials/
+Galllery Alley/
+Greenaura/
+ODU Tpiary Education/
+Olga Eremeeva/
+Reshetova Yana/
+Fonts/
+assets/trees/_originals/
+
+# Design references / scratch
+www.oldtomcapital.com*/
+Screenshot*.png
+Single Product Page Cart.png
+Testimonial Reference Image.jpg
+3536879ce99117e4be82121c0d02737e.jpg
+magnific_*.mp4
+magnific_*.png
+enivre.webp
+*.pre-reel-backup
+
+# Price lists (source data for catalog-data.js)
+*.xlsx
+
+# Unused media — no longer referenced by any page
+assets/hero-loop.mp4
+assets/hero-poster.jpg
+assets/grid-tree.jpg
+assets/sales-map.jpg
+assets/New Alley Logo/
+assets/old-aleya-logo/

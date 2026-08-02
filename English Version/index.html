@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alleya — avenue and park tree nursery, Rostov-on-Don</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="dome-gallery.css">
+<script>
+  // Start every load at the top; don't let the browser restore scroll or jump to a
+  // leftover #anchor (e.g. #contact from an earlier click) — strip it before paint.
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+  // Runs before body paints — hides hero elements so there is no flash of visible text.
+  document.documentElement.classList.add('intro-pending');
+</script>
+<style>
+  .intro-pending .site-header,
+  .intro-pending .hero-content .eyebrow,
+  .intro-pending .hero-headline,
+  .intro-pending .hero-sub,
+  .intro-pending .hero-content .hero-actions,
+  .intro-pending .scroll-cue {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  /* scrim stays fully off (no transform) until the reveal, so the video plays clean */
+  .intro-pending .hero-scrim { opacity: 0; }
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<header class="site-header" id="site-header">
+  <a href="#" class="logo-link">
+    <img src="assets/logo-full.png" class="logo-img" alt="Alleya">
+  </a>
+  <nav class="main-nav">
+    <a href="#inventory">Catalogue</a>
+    <a href="#about">About</a>
+    <a href="#partners">Partners</a>
+    <a href="#contact">Contacts</a>
+  </nav>
+  <span class="locale-tag">ROSTOV-ON-DON</span>
+</header>
+
+<section class="hero">
+  <video id="hero-intro-video" class="hero-video" autoplay muted playsinline poster="assets/tree-intro-poster.jpg">
+    <source src="assets/tree-intro.mp4" type="video/mp4">
+  </video>
+  <div class="hero-scrim"></div>
+  <div class="hero-content">
+    <p class="eyebrow">Alleya Nursery — Rostov-on-Don</p>
+    <h1 class="hero-headline">Grown<br>for centuries</h1>
+    <p class="hero-sub">A nursery of avenue and park trees and shrubs. Plants of our own production and from Europe — for parks, avenues and private gardens.</p>
+    <div class="hero-actions">
+      <a href="#inventory" class="btn btn-primary">Plant catalogue</a>
+      <a href="#about" class="btn btn-ghost">About the nursery</a>
+    </div>
+  </div>
+  <div class="scroll-cue"><span></span>Scroll</div>
+</section>
+
+<section class="intro" id="about">
+  <div class="intro-grid">
+    <div class="intro-left">
+      <p class="eyebrow eyebrow-dark">About</p>
+      <h2 class="intro-heading">We specialise in growing avenue and park trees and shrubs.</h2>
+    </div>
+    <div class="intro-right">
+      <p>Our range includes planting stock not only of our own production, but also plants of European origin, for example from the Netherlands and Italy. Drawing on the expertise of highly qualified specialists in the green industry and applying European growing technologies, we are glad to offer you plants that meet the highest standards of quality.</p>
+      <a href="#inventory" class="text-link">View catalogue →</a>
+    </div>
+  </div>
+</section>
+
+<section class="stats">
+  <svg class="ring-motif" viewBox="0 0 400 400" aria-hidden="true">
+    <circle cx="200" cy="200" r="40" />
+    <circle cx="200" cy="200" r="80" />
+    <circle cx="200" cy="200" r="120" />
+    <circle cx="200" cy="200" r="160" />
+    <circle cx="200" cy="200" r="198" />
+  </svg>
+  <p class="eyebrow">The nursery in numbers</p>
+  <div class="stats-grid">
+    <div class="stat">
+      <span class="stat-number" data-target="57">0</span><span class="stat-suffix"> ha</span>
+      <p class="stat-label">Nursery area</p>
+    </div>
+    <div class="stat">
+      <span class="stat-number" data-target="100000">0</span>
+      <p class="stat-label">Plants in the range</p>
+    </div>
+    <div class="stat">
+      <span class="stat-number" data-target="7">0</span>
+      <p class="stat-label">Partner companies</p>
+    </div>
+  </div>
+</section>
+
+<section class="catalog" id="inventory">
+  <p class="eyebrow eyebrow-dark">Catalogue</p>
+  <h2 class="catalog-heading">Trees and shrubs for your project</h2>
+  <div class="cat-tabs" role="tablist" aria-label="Root system type">
+    <button class="cat-tab is-active" type="button" role="tab" data-segment="grunt">Field-grown</button>
+    <button class="cat-tab" type="button" role="tab" data-segment="container">Container-grown</button>
+  </div>
+  <div class="catalog-grid" data-seg-grid="grunt">
+    <article class="catalog-card">
+      <div class="catalog-media">
+        <img src="assets/trees/klen.jpg" alt="Maple" loading="lazy">
+        <span class="catalog-badge catalog-badge--hit">Bestseller</span>
+      </div>
+      <div class="catalog-body">
+        <p class="catalog-cat">Avenue</p>
+        <h3 class="catalog-name">Maple</h3>
+        <div class="catalog-foot">
+          <span class="catalog-price">from 9,000 ₽</span>
+          <button class="catalog-buy" type="button" aria-label="Add to cart: Maple">
+            <svg class="i-cart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.2"/><circle cx="17" cy="20" r="1.2"/><path d="M3 4h2l2.1 11a1.5 1.5 0 0 0 1.5 1.2h7.6a1.5 1.5 0 0 0 1.5-1.2L21 8H6"/></svg>
+            <svg class="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg>
+          </button>
+        </div>
+      </div>
+    </article>
+    <article class="catalog-card">
+      <div class="catalog-media">
+        <img src="assets/trees/bereza.jpg" alt="Birch" loading="lazy">
+      </div>
+      <div class="catalog-body">
+        <p class="catalog-cat">Park</p>
+        <h3 class="catalog-name">Birch</h3>
+        <div class="catalog-foot">
+          <span class="catalog-price">from 8,000 ₽</span>
+          <button class="catalog-buy" type="button" aria-label="Add to cart: Birch">
+            <svg class="i-cart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.2"/><circle cx="17" cy="20" r="1.2"/><path d="M3 4h2l2.1 11a1.5 1.5 0 0 0 1.5 1.2h7.6a1.5 1.5 0 0 0 1.5-1.2L21 8H6"/></svg>
+            <svg class="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg>
+          </button>
+        </div>
+      </div>
+    </article>
+    <article class="catalog-card">
+      <div class="catalog-media">
+        <img src="assets/trees/yablonya.jpg" alt="Apple tree" loading="lazy">
+        <span class="catalog-badge catalog-badge--sale">Discount</span>
+      </div>
+      <div class="catalog-body">
+        <p class="catalog-cat">Fruit</p>
+        <h3 class="catalog-name">Apple tree</h3>
+        <div class="catalog-foot">
+          <span class="catalog-price">from 9,000 ₽</span>
+          <button class="catalog-buy" type="button" aria-label="Add to cart: Apple tree">
+            <svg class="i-cart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.2"/><circle cx="17" cy="20" r="1.2"/><path d="M3 4h2l2.1 11a1.5 1.5 0 0 0 1.5 1.2h7.6a1.5 1.5 0 0 0 1.5-1.2L21 8H6"/></svg>
+            <svg class="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg>
+          </button>
+        </div>
+      </div>
+    </article>
+    <article class="catalog-card">
+      <div class="catalog-media">
+        <img src="assets/trees/boyaryshnik.jpg" alt="Hawthorn" loading="lazy">
+      </div>
+      <div class="catalog-body">
+        <p class="catalog-cat">Ornamental</p>
+        <h3 class="catalog-name">Hawthorn</h3>
+        <div class="catalog-foot">
+          <span class="catalog-price">from 9,000 ₽</span>
+          <button class="catalog-buy" type="button" aria-label="Add to cart: Hawthorn">
+            <svg class="i-cart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.2"/><circle cx="17" cy="20" r="1.2"/><path d="M3 4h2l2.1 11a1.5 1.5 0 0 0 1.5 1.2h7.6a1.5 1.5 0 0 0 1.5-1.2L21 8H6"/></svg>
+            <svg class="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg>
+          </button>
+        </div>
+      </div>
+    </article>
+    <article class="catalog-card">
+      <div class="catalog-media">
+        <img src="assets/trees/vishnya.jpg" alt="Cherry" loading="lazy">
+      </div>
+      <div class="catalog-body">
+        <p class="catalog-cat">Ornamental</p>
+        <h3 class="catalog-name">Cherry</h3>
+        <div class="catalog-foot">
+          <span class="catalog-price">from 9,000 ₽</span>
+          <button class="catalog-buy" type="button" aria-label="Add to cart: Cherry">
+            <svg class="i-cart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.2"/><circle cx="17" cy="20" r="1.2"/><path d="M3 4h2l2.1 11a1.5 1.5 0 0 0 1.5 1.2h7.6a1.5 1.5 0 0 0 1.5-1.2L21 8H6"/></svg>
+            <svg class="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg>
+          </button>
+        </div>
+      </div>
+    </article>
+    <article class="catalog-card">
+      <div class="catalog-media">
+        <img src="assets/trees/vyaz.jpg" alt="Elm" loading="lazy">
+      </div>
+      <div class="catalog-body">
+        <p class="catalog-cat">Avenue</p>
+        <h3 class="catalog-name">Elm</h3>
+        <div class="catalog-foot">
+          <span class="catalog-price">from 12,000 ₽</span>
+          <button class="catalog-buy" type="button" aria-label="Add to cart: Elm">
+            <svg class="i-cart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.2"/><circle cx="17" cy="20" r="1.2"/><path d="M3 4h2l2.1 11a1.5 1.5 0 0 0 1.5 1.2h7.6a1.5 1.5 0 0 0 1.5-1.2L21 8H6"/></svg>
+            <svg class="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg>
+          </button>
+        </div>
+      </div>
+    </article>
+    <article class="catalog-card">
+      <div class="catalog-media">
+        <img src="assets/trees/iva.jpg" alt="Willow" loading="lazy">
+        <span class="catalog-badge catalog-badge--sale">Discount</span>
+      </div>
+      <div class="catalog-body">
+        <p class="catalog-cat">Ornamental</p>
+        <h3 class="catalog-name">Willow</h3>
+        <div class="catalog-foot">
+          <span class="catalog-price">from 3,000 ₽</span>
+          <button class="catalog-buy" type="button" aria-label="Add to cart: Willow">
+            <svg class="i-cart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.2"/><circle cx="17" cy="20" r="1.2"/><path d="M3 4h2l2.1 11a1.5 1.5 0 0 0 1.5 1.2h7.6a1.5 1.5 0 0 0 1.5-1.2L21 8H6"/></svg>
+            <svg class="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg>
+          </button>
+        </div>
+      </div>
+    </article>
+    <article class="catalog-card">
+      <div class="catalog-media">
+        <img src="assets/trees/lipa.jpg" alt="Linden" loading="lazy">
+        <span class="catalog-badge catalog-badge--hit">Bestseller</span>
+      </div>
+      <div class="catalog-body">
+        <p class="catalog-cat">Avenue</p>
+        <h3 class="catalog-name">Linden</h3>
+        <div class="catalog-foot">
+          <span class="catalog-price">from 15,000 ₽</span>
+          <button class="catalog-buy" type="button" aria-label="Add to cart: Linden">
+            <svg class="i-cart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.2"/><circle cx="17" cy="20" r="1.2"/><path d="M3 4h2l2.1 11a1.5 1.5 0 0 0 1.5 1.2h7.6a1.5 1.5 0 0 0 1.5-1.2L21 8H6"/></svg>
+            <svg class="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg>
+          </button>
+        </div>
+      </div>
+    </article>
+  </div>
+  <div class="catalog-grid" data-seg-grid="container" hidden>
+    <article class="catalog-card" data-product="c-klen-ostrolistnyy">
+      <div class="catalog-media catalog-media--ph">
+        <div class="ph-inner"><svg class="ph-leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M11 21c-5 0-9-4-9-9 5 0 9 1 11 5"/><path d="M20 4C10 4 5 9 5 17c8 0 15-4 15-13z"/><path d="M12 15c2-3 5-5 8-6"/></svg><span class="ph-label">Photo coming soon</span></div>
+      </div>
+      <div class="catalog-body">
+        <p class="catalog-cat">Deciduous tree</p>
+        <h3 class="catalog-name">Norway maple</h3>
+        <div class="catalog-foot">
+          <span class="catalog-price">from 20,000 ₽</span>
+          <button class="catalog-buy" type="button" aria-label="Add to cart: Norway maple">
+            <svg class="i-cart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.2"/><circle cx="17" cy="20" r="1.2"/><path d="M3 4h2l2.1 11a1.5 1.5 0 0 0 1.5 1.2h7.6a1.5 1.5 0 0 0 1.5-1.2L21 8H6"/></svg>
+            <svg class="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg>
+          </button>
+        </div>
+      </div>
+    </article>
+    <article class="catalog-card" data-product="c-dub-krasnyy">
+      <div class="catalog-media catalog-media--ph">
+        <div class="ph-inner"><svg class="ph-leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M11 21c-5 0-9-4-9-9 5 0 9 1 11 5"/><path d="M20 4C10 4 5 9 5 17c8 0 15-4 15-13z"/><path d="M12 15c2-3 5-5 8-6"/></svg><span class="ph-label">Photo coming soon</span></div>
+      </div>
+      <div class="catalog-body">
+        <p class="catalog-cat">Deciduous tree</p>
+        <h3 class="catalog-name">Red oak</h3>
+        <div class="catalog-foot">
+          <span class="catalog-price">from 65,000 ₽</span>
+          <button class="catalog-buy" type="button" aria-label="Add to cart: Red oak">
+            <svg class="i-cart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.2"/><circle cx="17" cy="20" r="1.2"/><path d="M3 4h2l2.1 11a1.5 1.5 0 0 0 1.5 1.2h7.6a1.5 1.5 0 0 0 1.5-1.2L21 8H6"/></svg>
+            <svg class="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg>
+          </button>
+        </div>
+      </div>
+    </article>
+    <article class="catalog-card" data-product="c-sakura-melkopilchataya">
+      <div class="catalog-media catalog-media--ph">
+        <div class="ph-inner"><svg class="ph-leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M11 21c-5 0-9-4-9-9 5 0 9 1 11 5"/><path d="M20 4C10 4 5 9 5 17c8 0 15-4 15-13z"/><path d="M12 15c2-3 5-5 8-6"/></svg><span class="ph-label">Photo coming soon</span></div>
+      </div>
+      <div class="catalog-body">
+        <p class="catalog-cat">Deciduous tree</p>
+        <h3 class="catalog-name">Japanese cherry</h3>
+        <div class="catalog-foot">
+          <span class="catalog-price">from 45,000 ₽</span>
+          <button class="catalog-buy" type="button" aria-label="Add to cart: Japanese cherry">
+            <svg class="i-cart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.2"/><circle cx="17" cy="20" r="1.2"/><path d="M3 4h2l2.1 11a1.5 1.5 0 0 0 1.5 1.2h7.6a1.5 1.5 0 0 0 1.5-1.2L21 8H6"/></svg>
+            <svg class="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg>
+          </button>
+        </div>
+      </div>
+    </article>
+    <article class="catalog-card" data-product="c-lipa-krupnolistnaya">
+      <div class="catalog-media catalog-media--ph">
+        <div class="ph-inner"><svg class="ph-leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M11 21c-5 0-9-4-9-9 5 0 9 1 11 5"/><path d="M20 4C10 4 5 9 5 17c8 0 15-4 15-13z"/><path d="M12 15c2-3 5-5 8-6"/></svg><span class="ph-label">Photo coming soon</span></div>
+      </div>
+      <div class="catalog-body">
+        <p class="catalog-cat">Deciduous tree</p>
+        <h3 class="catalog-name">Large-leaved linden</h3>
+        <div class="catalog-foot">
+          <span class="catalog-price">from 65,000 ₽</span>
+          <button class="catalog-buy" type="button" aria-label="Add to cart: Large-leaved linden">
+            <svg class="i-cart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.2"/><circle cx="17" cy="20" r="1.2"/><path d="M3 4h2l2.1 11a1.5 1.5 0 0 0 1.5 1.2h7.6a1.5 1.5 0 0 0 1.5-1.2L21 8H6"/></svg>
+            <svg class="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg>
+          </button>
+        </div>
+      </div>
+    </article>
+    <article class="catalog-card" data-product="c-tuya">
+      <div class="catalog-media catalog-media--ph">
+        <div class="ph-inner"><svg class="ph-leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M11 21c-5 0-9-4-9-9 5 0 9 1 11 5"/><path d="M20 4C10 4 5 9 5 17c8 0 15-4 15-13z"/><path d="M12 15c2-3 5-5 8-6"/></svg><span class="ph-label">Photo coming soon</span></div>
+      </div>
+      <div class="catalog-body">
+        <p class="catalog-cat">Hedge</p>
+        <h3 class="catalog-name">Thuja 'Brabant'</h3>
+        <div class="catalog-foot">
+          <span class="catalog-price">from 11,700 ₽</span>
+          <button class="catalog-buy" type="button" aria-label="Add to cart: Thuja Brabant">
+            <svg class="i-cart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.2"/><circle cx="17" cy="20" r="1.2"/><path d="M3 4h2l2.1 11a1.5 1.5 0 0 0 1.5 1.2h7.6a1.5 1.5 0 0 0 1.5-1.2L21 8H6"/></svg>
+            <svg class="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg>
+          </button>
+        </div>
+      </div>
+    </article>
+    <article class="catalog-card" data-product="c-deren-belyy">
+      <div class="catalog-media catalog-media--ph">
+        <div class="ph-inner"><svg class="ph-leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M11 21c-5 0-9-4-9-9 5 0 9 1 11 5"/><path d="M20 4C10 4 5 9 5 17c8 0 15-4 15-13z"/><path d="M12 15c2-3 5-5 8-6"/></svg><span class="ph-label">Photo coming soon</span></div>
+      </div>
+      <div class="catalog-body">
+        <p class="catalog-cat">Hedge</p>
+        <h3 class="catalog-name">White dogwood 'Aurea'</h3>
+        <div class="catalog-foot">
+          <span class="catalog-price">from 11,700 ₽</span>
+          <button class="catalog-buy" type="button" aria-label="Add to cart: White dogwood Aurea">
+            <svg class="i-cart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.2"/><circle cx="17" cy="20" r="1.2"/><path d="M3 4h2l2.1 11a1.5 1.5 0 0 0 1.5 1.2h7.6a1.5 1.5 0 0 0 1.5-1.2L21 8H6"/></svg>
+            <svg class="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg>
+          </button>
+        </div>
+      </div>
+    </article>
+  </div>
+  <div class="catalog-more">
+    <a href="catalog.html" class="btn btn-dark btn-primary" id="home-catalog-more">Open the full catalogue</a>
+  </div>
+</section>
+
+<section class="geography">
+  <p class="eyebrow">Where our trees grow</p>
+  <h2 class="geography-heading">Sales geography</h2>
+  <p class="geography-sub">We supply planting stock to customers across the European part of Russia — from Moscow to Crimea.</p>
+  <div class="geography-map">
+    <div class="geo-map">
+      <div class="geo-media">
+        <img class="geo-img geo-base" src="assets/sales-map-relief.jpg" alt="Sales geography map — European Russia" loading="lazy">
+        <img class="geo-img geo-mute" src="assets/sales-map-relief.jpg" alt="" aria-hidden="true" loading="lazy">
+      </div>
+      <button class="geo-pin" type="button" style="left:37.08%;top:15.09%" aria-label="Moscow"><span class="geo-dot"></span><span class="geo-pin-label">Moscow</span></button>
+      <button class="geo-pin" type="button" style="left:57.15%;top:11.65%" aria-label="Nizhny Novgorod"><span class="geo-dot"></span><span class="geo-pin-label">Nizhny Novgorod</span></button>
+      <button class="geo-pin" type="button" style="left:43.56%;top:24.09%" aria-label="Ryazan"><span class="geo-dot"></span><span class="geo-pin-label">Ryazan</span></button>
+      <button class="geo-pin" type="button" style="left:36.45%;top:26.82%" aria-label="Tula"><span class="geo-dot"></span><span class="geo-pin-label">Tula</span></button>
+      <button class="geo-pin" type="button" style="left:41.02%;top:46.32%" aria-label="Voronezh"><span class="geo-dot"></span><span class="geo-pin-label">Voronezh</span></button>
+      <button class="geo-pin" type="button" style="left:42.63%;top:39.25%" aria-label="Lipetsk"><span class="geo-dot"></span><span class="geo-pin-label">Lipetsk</span></button>
+      <button class="geo-pin" type="button" style="left:49.03%;top:38.66%" aria-label="Tambov"><span class="geo-dot"></span><span class="geo-pin-label">Tambov</span></button>
+      <button class="geo-pin" type="button" style="left:31.35%;top:53.51%" aria-label="Belgorod"><span class="geo-dot"></span><span class="geo-pin-label">Belgorod</span></button>
+      <button class="geo-pin" type="button" style="left:30.5%;top:44.82%" aria-label="Kursk"><span class="geo-dot"></span><span class="geo-pin-label">Kursk</span></button>
+      <button class="geo-pin" type="button" style="left:60.18%;top:68.78%" aria-label="Volgograd"><span class="geo-dot"></span><span class="geo-pin-label">Volgograd</span></button>
+      <button class="geo-pin geo-pin--hq" type="button" style="left:41.82%;top:79.72%" aria-label="Rostov-on-Don"><span class="geo-dot"></span><span class="geo-pin-label">Rostov-on-Don</span></button>
+      <button class="geo-pin" type="button" style="left:38.44%;top:96.06%" aria-label="Krasnodar"><span class="geo-dot"></span><span class="geo-pin-label">Krasnodar</span></button>
+      <button class="geo-pin" type="button" style="left:50.49%;top:96.45%" aria-label="Stavropol"><span class="geo-dot"></span><span class="geo-pin-label">Stavropol</span></button>
+      <button class="geo-pin" type="button" style="left:18.84%;top:94.47%" aria-label="Simferopol"><span class="geo-dot"></span><span class="geo-pin-label">Simferopol</span></button>
+    </div>
+    <p class="geo-credit">Relief base map: Wikimedia Commons · CC BY-SA 4.0</p>
+  </div>
+</section>
+
+<section class="partners" id="partners">
+  <p class="eyebrow">Trusted specialists</p>
+  <h2 class="partners-heading">We work with the best in the industry</h2>
+  <p class="partners-sub">We recommend partners for design, landscaping and care of your garden.</p>
+  <div class="partners-grid">
+    <div class="partner-card">
+      <p class="partner-name">Yana Reshetova</p>
+      <p class="partner-role">Landscape architect</p>
+    <div class="partner-gallery" data-count="6">
+      <div class="pg-frame">
+        <img class="pg-slide is-active" src="assets/partners/reshetova/1.jpg" alt="Yana Reshetova — photo 1" loading="lazy">
+        <img class="pg-slide" src="assets/partners/reshetova/2.jpg" alt="Yana Reshetova — photo 2" loading="lazy">
+        <img class="pg-slide" src="assets/partners/reshetova/3.jpg" alt="Yana Reshetova — photo 3" loading="lazy">
+        <img class="pg-slide" src="assets/partners/reshetova/4.jpg" alt="Yana Reshetova — photo 4" loading="lazy">
+        <img class="pg-slide" src="assets/partners/reshetova/5.jpg" alt="Yana Reshetova — photo 5" loading="lazy">
+        <img class="pg-slide" src="assets/partners/reshetova/6.jpg" alt="Yana Reshetova — photo 6" loading="lazy">
+      </div>
+    </div>
+      <p class="partner-desc">Contemporary gardens with an individual approach to every client. 8 years in landscape design, educated at the SFedU Academy of Architecture and Arts.</p>
+      <p class="partner-price">Planting up to 300 m² — from 10,000 ₽ · Garden design — from 6,000 ₽ per 100 m²</p>
+    </div>
+    <div class="partner-card">
+      <p class="partner-name">ODU Topiary Education</p>
+      <p class="partner-role">School of topiary and plant care</p>
+    <div class="partner-gallery" data-count="5">
+      <div class="pg-frame">
+        <img class="pg-slide is-active" src="assets/partners/odu/1.jpg" alt="ODU Topiary Education — photo 1" loading="lazy">
+        <img class="pg-slide" src="assets/partners/odu/2.jpg" alt="ODU Topiary Education — photo 2" loading="lazy">
+        <img class="pg-slide" src="assets/partners/odu/3.jpg" alt="ODU Topiary Education — photo 3" loading="lazy">
+        <img class="pg-slide" src="assets/partners/odu/4.jpg" alt="ODU Topiary Education — photo 4" loading="lazy">
+        <img class="pg-slide" src="assets/partners/odu/5.jpg" alt="ODU Topiary Education — photo 5" loading="lazy">
+      </div>
+    </div>
+      <p class="partner-desc">Theory and practice from leading masters of the green industry: topiary, dendrology, horticulture, design and maintenance work.</p>
+      <p class="partner-price">topiaryeducation.ru</p>
+    </div>
+    <div class="partner-card">
+      <p class="partner-name">Greenaura</p>
+      <p class="partner-role">Full-cycle landscaping company</p>
+    <div class="partner-gallery" data-count="5">
+      <div class="pg-frame">
+        <img class="pg-slide is-active" src="assets/partners/greenaura/1.jpg" alt="Greenaura — photo 1" loading="lazy">
+        <img class="pg-slide" src="assets/partners/greenaura/2.jpg" alt="Greenaura — photo 2" loading="lazy">
+        <img class="pg-slide" src="assets/partners/greenaura/3.jpg" alt="Greenaura — photo 3" loading="lazy">
+        <img class="pg-slide" src="assets/partners/greenaura/4.jpg" alt="Greenaura — photo 4" loading="lazy">
+        <img class="pg-slide" src="assets/partners/greenaura/5.jpg" alt="Greenaura — photo 5" loading="lazy">
+      </div>
+    </div>
+      <p class="partner-desc">Private gardens and landscaping of residential grounds — from design concept and visualisation to construction and full maintenance. Founders: Vera Strelkova and Olga Chebotaryova.</p>
+      <p class="partner-price">Consultation — 3,000–5,000 ₽ · 50% prepayment</p>
+    </div>
+    <div class="partner-card">
+      <p class="partner-name">Olga Eremeeva</p>
+      <p class="partner-role">Head of the Alexander Tolokonnikov Landscape Studio</p>
+    <div class="partner-gallery" data-count="10">
+      <div class="pg-frame">
+        <img class="pg-slide is-active" src="assets/partners/eremeeva/1.jpg" alt="Olga Eremeeva — photo 1" loading="lazy">
+        <img class="pg-slide" src="assets/partners/eremeeva/2.jpg" alt="Olga Eremeeva — photo 2" loading="lazy">
+        <img class="pg-slide" src="assets/partners/eremeeva/3.jpg" alt="Olga Eremeeva — photo 3" loading="lazy">
+        <img class="pg-slide" src="assets/partners/eremeeva/4.jpg" alt="Olga Eremeeva — photo 4" loading="lazy">
+        <img class="pg-slide" src="assets/partners/eremeeva/5.jpg" alt="Olga Eremeeva — photo 5" loading="lazy">
+        <img class="pg-slide" src="assets/partners/eremeeva/6.jpg" alt="Olga Eremeeva — photo 6" loading="lazy">
+        <img class="pg-slide" src="assets/partners/eremeeva/7.jpg" alt="Olga Eremeeva — photo 7" loading="lazy">
+        <img class="pg-slide" src="assets/partners/eremeeva/8.jpg" alt="Olga Eremeeva — photo 8" loading="lazy">
+        <img class="pg-slide" src="assets/partners/eremeeva/9.jpg" alt="Olga Eremeeva — photo 9" loading="lazy">
+        <img class="pg-slide" src="assets/partners/eremeeva/10.jpg" alt="Olga Eremeeva — photo 10" loading="lazy">
+      </div>
+    </div>
+      <p class="partner-desc">Construction and development of gardens and parks, private landscape and interior planting projects. 7 years of experience.</p>
+      <p class="partner-price">Consultation — 5,000 ₽ · Design — 10,000 ₽ per 100 m² · Maintenance — 5,000 ₽ per visit</p>
+    </div>
+  </div>
+</section>
+
+<section class="vtestimonials" id="video-reviews">
+  <div class="vt-head">
+    <p class="eyebrow">Video reviews</p>
+    <h2 class="vt-heading">What people say about Alleya</h2>
+    <p class="vt-sub">Real impressions from our clients — straight from YouTube.</p>
+  </div>
+  <div class="vt-grid">
+    <button class="vt-frame" type="button" data-yt="C-NeT31Mu_g" data-start="3" aria-label="Watch the video review of the Alleya nursery">
+      <img class="vt-thumb" src="https://i.ytimg.com/vi/C-NeT31Mu_g/maxresdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/C-NeT31Mu_g/hqdefault.jpg'" alt="Video review of the Alleya nursery" loading="lazy">
+      <span class="vt-play" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M8 5.5v13l11-6.5-11-6.5z"/></svg>
+      </span>
+    </button>
+    <button class="vt-frame" type="button" data-yt="2FN0bXkl-jY" data-start="7" aria-label="Watch the video review of the Alleya nursery">
+      <img class="vt-thumb" src="https://i.ytimg.com/vi/2FN0bXkl-jY/maxresdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/2FN0bXkl-jY/hqdefault.jpg'" alt="Video review of the Alleya nursery" loading="lazy">
+      <span class="vt-play" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M8 5.5v13l11-6.5-11-6.5z"/></svg>
+      </span>
+    </button>
+  </div>
+</section>
+
+<section class="testimonials" id="testimonials">
+  <div class="tm-head">
+    <p class="eyebrow eyebrow-dark">Reviews</p>
+    <h2 class="tm-heading">What people say about Alleya</h2>
+  </div>
+  <div class="tm-viewport">
+    <div class="tm-track">
+        <div class="tm-col">
+          <article class="tm-card">
+            <div class="tm-inner">
+              <div class="tm-top">
+                <div class="tm-stars" aria-label="Rated 5 out of 5">★★★★★</div>
+                <span class="tm-quote" aria-hidden="true">”</span>
+              </div>
+              <p class="tm-text">A Norway maple from Alleya — almost 3.5 metres tall! My eyes were everywhere, I wanted to take the whole place home. It would be easier to move my plot to their nursery.</p>
+              <div class="tm-divider"></div>
+              <div class="tm-author">
+                <span class="tm-av" style="background:#e07b39">Y</span>
+                <span class="tm-who"><span class="tm-name">Yulia</span><span class="tm-source">Instagram</span></span>
+              </div>
+            </div>
+          </article>
+          <article class="tm-card">
+            <div class="tm-inner">
+              <div class="tm-top">
+                <div class="tm-stars" aria-label="Rated 5 out of 5">★★★★★</div>
+                <span class="tm-quote" aria-hidden="true">”</span>
+              </div>
+              <p class="tm-text">Huge thanks to Nastya the manager and Evgeny the agronomist for the walk around Alleya. Tall standards, trees full of health and strength. Great spirit and potential!</p>
+              <div class="tm-divider"></div>
+              <div class="tm-author">
+                <span class="tm-av" style="background:#2e86de">M</span>
+                <span class="tm-who"><span class="tm-name">Maria L.</span><span class="tm-source">Telegram</span></span>
+              </div>
+            </div>
+          </article>
+        </div>
+        <div class="tm-col">
+          <article class="tm-card">
+            <div class="tm-inner">
+              <div class="tm-top">
+                <div class="tm-stars" aria-label="Rated 5 out of 5">★★★★★</div>
+                <span class="tm-quote" aria-hidden="true">”</span>
+              </div>
+              <p class="tm-text">A good choice of sakura, that made my day. Great team!</p>
+              <div class="tm-divider"></div>
+              <div class="tm-author">
+                <span class="tm-av" style="background:#e58e26">A</span>
+                <span class="tm-who"><span class="tm-name">Alexey Shlyakhov</span><span class="tm-source">Yandex Maps</span></span>
+              </div>
+            </div>
+          </article>
+          <article class="tm-card">
+            <div class="tm-inner">
+              <div class="tm-top">
+                <div class="tm-stars" aria-label="Rated 5 out of 5">★★★★★</div>
+                <span class="tm-quote" aria-hidden="true">”</span>
+              </div>
+              <p class="tm-text">Alleya's planting stock is striking in its decorative quality. Delivery and care advice are a real convenience. Buying was pleasant and quick.</p>
+              <div class="tm-divider"></div>
+              <div class="tm-author">
+                <span class="tm-av" style="background:#8e5bb5">V</span>
+                <span class="tm-who"><span class="tm-name">Varvara Berezina</span><span class="tm-source">Review</span></span>
+              </div>
+            </div>
+          </article>
+        </div>
+        <div class="tm-col">
+          <article class="tm-card">
+            <div class="tm-inner">
+              <div class="tm-top">
+                <div class="tm-stars" aria-label="Rated 5 out of 5">★★★★★</div>
+                <span class="tm-quote" aria-hidden="true">”</span>
+              </div>
+              <p class="tm-text">Thank you, excellent stock. I came with the kids, so I did not pick anything out. We will definitely be back!</p>
+              <div class="tm-divider"></div>
+              <div class="tm-author">
+                <span class="tm-av" style="background:#16a085">P</span>
+                <span class="tm-who"><span class="tm-name">Customer</span><span class="tm-source">Telegram</span></span>
+              </div>
+            </div>
+          </article>
+          <article class="tm-card">
+            <div class="tm-inner">
+              <div class="tm-top">
+                <div class="tm-stars" aria-label="Rated 5 out of 5">★★★★★</div>
+                <span class="tm-quote" aria-hidden="true">”</span>
+              </div>
+              <p class="tm-text">A good nursery — the only place where I found a 4-metre willow. They packed it, loaded it, all perfect. Recommended!</p>
+              <div class="tm-divider"></div>
+              <div class="tm-author">
+                <span class="tm-av" style="background:#4a69bd">A</span>
+                <span class="tm-who"><span class="tm-name">Artyom</span><span class="tm-source">Yandex Maps</span></span>
+              </div>
+            </div>
+          </article>
+        </div>
+        <div class="tm-col">
+          <article class="tm-card">
+            <div class="tm-inner">
+              <div class="tm-top">
+                <div class="tm-stars" aria-label="Rated 5 out of 5">★★★★★</div>
+                <span class="tm-quote" aria-hidden="true">”</span>
+              </div>
+              <p class="tm-text">Superb, these guys are masters of their craft, great selection! Convenient location.</p>
+              <div class="tm-divider"></div>
+              <div class="tm-author">
+                <span class="tm-av" style="background:#27ae60">S</span>
+                <span class="tm-who"><span class="tm-name">Sergey K.</span><span class="tm-source">Yandex Maps</span></span>
+              </div>
+            </div>
+          </article>
+          <article class="tm-card">
+            <div class="tm-inner">
+              <div class="tm-top">
+                <div class="tm-stars" aria-label="Rated 5 out of 5">★★★★★</div>
+                <span class="tm-quote" aria-hidden="true">”</span>
+              </div>
+              <p class="tm-text">Everything was great, the communication and the selection were spot on. I bought a Norway maple 'Royal Red'.</p>
+              <div class="tm-divider"></div>
+              <div class="tm-author">
+                <span class="tm-av" style="background:#e0559a">A</span>
+                <span class="tm-who"><span class="tm-name">Alexander</span><span class="tm-source">Yandex Maps</span></span>
+              </div>
+            </div>
+          </article>
+        </div>
+    </div>
+  </div>
+  <div class="tm-nav">
+    <button class="tm-arrow tm-prev" type="button" aria-label="Previous reviews">&#8592;</button>
+    <button class="tm-arrow tm-next" type="button" aria-label="Next reviews">&#8594;</button>
+  </div>
+</section>
+
+<section class="gallery" id="gallery">
+  <div class="gallery-head">
+    <p class="eyebrow">Gallery</p>
+    <h2 class="gallery-heading">Alleya nursery in person</h2>
+    <p class="gallery-sub">Drag to rotate. Click a photo to take a closer look.</p>
+  </div>
+  <div class="dome-wrap" id="dome-gallery"></div>
+</section>
+
+<section class="cta" id="cta">
+  <div class="cta-aurora" id="cta-aurora" aria-hidden="true"></div>
+  <div class="cta-inner">
+    <h2 class="cta-heading">Your avenue<br>starts here.</h2>
+    <div class="hero-actions">
+      <a href="#inventory" class="btn btn-primary">Start an order</a>
+      <a href="#contact" class="btn btn-ghost">Visit the nursery</a>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer" id="contact">
+  <div class="footer-top">
+    <img src="assets/logo-symbol.png" class="footer-symbol" alt="Alleya">
+    <div class="footer-cols">
+      <div class="footer-col">
+        <p class="footer-col-title">Navigation</p>
+        <a href="#inventory">Catalogue</a>
+        <a href="#about">About</a>
+        <a href="#partners">Partners</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">Nursery</p>
+        <p>Rostov-on-Don, Russia</p>
+        <p>By appointment, Mon–Sat</p>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">Contacts</p>
+        <p>hello@alley-pitomnik.ru</p>
+        <p>+7 (863) 000-00-00</p>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Alleya. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js" integrity="sha384-O55L/6rhHr9CFvrxqv5luxOCcmVaBmETbZbJDP+Do8T0pztTACsFBD/IXCNkj7DV" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" integrity="sha384-g4NTh/Iv5PPU4xPyhEWqPcwtNXOvdaDI8LLnyYfyNZOjKJeYQyjzQ9X5275eBjpt" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" integrity="sha384-Z3REaz79l2IaAZqJsSABtTbhjgOUYyV3p90XNnAPCSHg3EMTz1fouunq9WZRtj3d" crossorigin="anonymous"></script>
+<script src="script.js"></script>
+<script src="catalog-data.js"></script>
+<script src="catalog-data-container.js"></script>
+<script src="products.js"></script>
+<script src="product-modal.js"></script>
+<script>
+  // Landing catalog segment toggle: Field-grown <-> Container-grown (two static preview grids).
+  (function () {
+    const tabs = document.querySelector('.catalog .cat-tabs');
+    if (!tabs) return;
+    const grids = document.querySelectorAll('.catalog [data-seg-grid]');
+    const more = document.getElementById('home-catalog-more');
+    tabs.querySelectorAll('.cat-tab[data-segment]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const seg = btn.dataset.segment;
+        tabs.querySelectorAll('.cat-tab').forEach((b) => b.classList.toggle('is-active', b === btn));
+        grids.forEach((g) => (g.hidden = g.dataset.segGrid !== seg));
+        if (more) more.href = seg === 'container' ? 'catalog.html#container' : 'catalog.html';
+      });
+    });
+  })();
+</script>
+<script src="soft-aurora.js"></script>
+<script src="dome-gallery.js"></script>
+<script>
+  initDomeGallery(document.getElementById('dome-gallery'), {
+    images: [
+      'assets/gallery/1.jpg', 'assets/gallery/2.jpg', 'assets/gallery/3.jpg',
+      'assets/gallery/4.jpg', 'assets/gallery/5.jpg', 'assets/gallery/6.jpg',
+      'assets/gallery/7.jpg', 'assets/gallery/8.jpg', 'assets/gallery/9.jpg',
+      'assets/gallery/10.jpg', 'assets/gallery/11.jpg'
+    ],
+    fit: 0.75,
+    minRadius: 800,
+    segments: 28,
+    dragDampening: 2.6,
+    grayscale: false,
+    overlayBlurColor: '#232c1c'
+  });
+</script>
+
+<!-- Lead-capture popup for pros (landscapers / gardeners) — opens on first scroll -->
+<div class="lead-pop" id="lead-pop" hidden aria-hidden="true">
+  <div class="lead-pop-dialog" role="dialog" aria-modal="true" aria-labelledby="lead-pop-title">
+    <button class="lead-pop-close" type="button" id="lead-pop-close" aria-label="Close">&times;</button>
+    <div class="lead-pop-media">
+      <img src="assets/popup-cover.png" alt="Landscape park, planting by the nursery Alleya" loading="lazy">
+    </div>
+    <div class="lead-pop-body">
+      <div class="lead-pop-form-view" id="lead-pop-form-view">
+        <p class="lead-pop-eyebrow">For professionals only</p>
+        <h2 class="lead-pop-title" id="lead-pop-title">Special terms for landscapers and gardeners</h2>
+        <p class="lead-pop-sub"><strong class="lead-pop-hl">Up to 15% off</strong> for professionals in the green industry. Leave your email — a manager will get in touch, confirm the details and set up <strong>your special terms</strong>.</p>
+        <form class="lead-pop-form" id="lead-pop-form" novalidate>
+          <input class="lead-pop-input" id="lead-pop-email" type="email" name="email" placeholder="Your e-mail" autocomplete="email" required>
+          <button class="btn btn-dark btn-primary lead-pop-submit" type="submit">Get the terms</button>
+        </form>
+        <button class="lead-pop-dismiss" type="button" id="lead-pop-dismiss">No, thanks</button>
+        <p class="lead-pop-fine">We never share your email with third parties.</p>
+      </div>
+      <div class="lead-pop-done-view" id="lead-pop-done-view" hidden>
+        <div class="lead-pop-check" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg>
+        </div>
+        <h2 class="lead-pop-title">Thank you! We will be in touch.</h2>
+        <p class="lead-pop-sub">A manager will write to the email you provided to confirm the terms for green-industry professionals.</p>
+        <button class="btn btn-dark btn-primary lead-pop-submit" type="button" id="lead-pop-done-close">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== REEL-ONLY OVERRIDES — TEMPORARY, ENGLISH PAGE ONLY =====================
+     Added for filming a scroll capture. Not part of the site.
+     Revert by deleting this block, or simply run: python3 "English Version/build-en.py"
+     (index.html is generated, so a rebuild wipes this automatically).
+     1. Kills the lead-capture popup outright.
+     2. Rostov fan-out lines drawn at full opacity instead of 0.45.
+============================================================================== -->
+<style>
+  /* the fan shown on Rostov hover: fully opaque for camera */
+  .geo-line--all { opacity: 1; stroke-width: 2.5; }
+  /* belt-and-braces: popup can never paint even if something re-adds it */
+  .lead-pop { display: none !important; }
+</style>
+<script>
+  // Remove the popup node BEFORE popup.js runs — it does `if (!pop) return;`,
+  // so it bails immediately and never registers its scroll/wheel/touch triggers.
+  (function () {
+    var pop = document.getElementById('lead-pop');
+    if (pop) pop.remove();
+  })();
+</script>
+<!-- ===== END REEL-ONLY OVERRIDES ============================================ -->
+
+<script src="popup.js"></script>
+</body>
+</html>

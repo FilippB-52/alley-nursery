@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Оформление заказа — Аллея, питомник деревьев и кустарников</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="grain"></div>
+
+<header class="site-header" id="site-header">
+  <a href="index.html" class="logo-link">
+    <img src="assets/logo-full.png" class="logo-img" alt="Аллея">
+  </a>
+  <nav class="main-nav">
+    <a href="catalog.html">Каталог</a>
+    <a href="index.html#about">О нас</a>
+    <a href="index.html#partners">Партнёры</a>
+    <a href="index.html#contact">Контакты</a>
+  </nav>
+  <div class="header-actions">
+    <span class="locale-tag">РОСТОВ-НА-ДОНУ</span>
+    <div class="lang-switch" role="group" aria-label="Язык сайта">
+      <button class="lang-opt" type="button" data-lang="ru">RU</button>
+      <button class="lang-opt" type="button" data-lang="en">EN</button>
+    </div>
+    <button class="cart-btn" type="button" aria-label="Открыть корзину">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.2"/><circle cx="17" cy="20" r="1.2"/><path d="M3 4h2l2.1 11a1.5 1.5 0 0 0 1.5 1.2h7.6a1.5 1.5 0 0 0 1.5-1.2L21 8H6"/></svg>
+      <span class="cart-btn-count" data-cart-count hidden>0</span>
+    </button>
+  </div>
+</header>
+
+<section class="page-head page-head--slim">
+  <p class="eyebrow">Оформление заказа</p>
+  <h1 class="page-head-title">Ваш заказ</h1>
+</section>
+
+<section class="checkout" id="checkout">
+  <div class="co-empty" id="co-empty" hidden>
+    <p class="co-empty-title">Корзина пуста</p>
+    <p class="co-empty-sub">Добавьте растения из каталога, и заказ можно будет оформить.</p>
+    <a class="btn btn-dark btn-primary" href="catalog.html">В каталог</a>
+  </div>
+
+  <div class="co-grid" id="co-grid">
+    <div class="co-main">
+      <ol class="co-steps" id="co-steps">
+        <li class="co-step is-active" data-step="1"><span class="co-step-n">1</span>Контакты</li>
+        <li class="co-step" data-step="2"><span class="co-step-n">2</span>Доставка</li>
+        <li class="co-step" data-step="3"><span class="co-step-n">3</span>Оплата</li>
+      </ol>
+
+      <form class="co-form" id="co-form" novalidate>
+        <!-- Step 1 -->
+        <fieldset class="co-panel is-active" data-panel="1">
+          <legend class="co-panel-title">Контактные данные</legend>
+          <div class="co-fields">
+            <label class="co-field">
+              <span class="co-label">Имя и фамилия</span>
+              <input type="text" name="name" autocomplete="name" required placeholder="Иван Петров">
+              <span class="co-err">Укажите имя</span>
+            </label>
+            <label class="co-field">
+              <span class="co-label">Телефон</span>
+              <input type="tel" name="phone" autocomplete="tel" required placeholder="+7 (900) 000-00-00">
+              <span class="co-err">Укажите телефон</span>
+            </label>
+            <label class="co-field">
+              <span class="co-label">E-mail</span>
+              <input type="email" name="email" autocomplete="email" required placeholder="you@mail.ru">
+              <span class="co-err">Укажите корректный e-mail</span>
+            </label>
+            <label class="co-field">
+              <span class="co-label">Компания <em>необязательно</em></span>
+              <input type="text" name="company" autocomplete="organization" placeholder="Ландшафтная студия">
+            </label>
+          </div>
+          <div class="co-nav">
+            <a class="co-back" href="catalog.html">← Вернуться в каталог</a>
+            <button class="btn btn-dark btn-primary" type="button" data-next="2">Далее — доставка</button>
+          </div>
+        </fieldset>
+
+        <!-- Step 2 -->
+        <fieldset class="co-panel" data-panel="2">
+          <legend class="co-panel-title">Доставка</legend>
+          <div class="co-choices" role="radiogroup" aria-label="Способ получения">
+            <label class="co-choice">
+              <input type="radio" name="shipping" value="pickup" checked>
+              <span class="co-choice-body">
+                <span class="co-choice-name">Самовывоз из питомника</span>
+                <span class="co-choice-sub">Ростов-на-Дону, по договорённости, Пн–Сб</span>
+              </span>
+              <span class="co-choice-price">0 ₽</span>
+            </label>
+            <label class="co-choice">
+              <input type="radio" name="shipping" value="delivery">
+              <span class="co-choice-body">
+                <span class="co-choice-name">Доставка по адресу</span>
+                <span class="co-choice-sub">По европейской части России, с погрузкой</span>
+              </span>
+              <span class="co-choice-price">по расчёту</span>
+            </label>
+          </div>
+
+          <div class="co-fields" id="co-address" hidden>
+            <label class="co-field">
+              <span class="co-label">Город</span>
+              <input type="text" name="city" autocomplete="address-level2" placeholder="Краснодар">
+              <span class="co-err">Укажите город</span>
+            </label>
+            <label class="co-field">
+              <span class="co-label">Адрес доставки</span>
+              <input type="text" name="address" autocomplete="street-address" placeholder="Улица, дом, ориентир">
+              <span class="co-err">Укажите адрес</span>
+            </label>
+          </div>
+
+          <div class="co-fields">
+            <label class="co-field">
+              <span class="co-label">Желаемая дата</span>
+              <input type="date" name="date">
+            </label>
+            <label class="co-field co-field--wide">
+              <span class="co-label">Комментарий к заказу <em>необязательно</em></span>
+              <textarea name="comment" rows="3" placeholder="Посадка, подбор аналогов, время приёмки"></textarea>
+            </label>
+          </div>
+
+          <div class="co-nav">
+            <button class="co-back" type="button" data-prev="1">← Назад</button>
+            <button class="btn btn-dark btn-primary" type="button" data-next="3">Далее — оплата</button>
+          </div>
+        </fieldset>
+
+        <!-- Step 3 -->
+        <fieldset class="co-panel" data-panel="3">
+          <legend class="co-panel-title">Оплата</legend>
+          <div class="co-choices" role="radiogroup" aria-label="Способ оплаты">
+            <label class="co-choice">
+              <input type="radio" name="payment" value="card" checked>
+              <span class="co-choice-body">
+                <span class="co-choice-name">Банковская карта</span>
+                <span class="co-choice-sub">Visa · Mastercard · МИР</span>
+              </span>
+            </label>
+            <label class="co-choice">
+              <input type="radio" name="payment" value="applepay">
+              <span class="co-choice-body">
+                <span class="co-choice-name">Apple Pay</span>
+                <span class="co-choice-sub">Оплата в один тап</span>
+              </span>
+            </label>
+            <label class="co-choice">
+              <input type="radio" name="payment" value="invoice">
+              <span class="co-choice-body">
+                <span class="co-choice-name">Счёт для юридического лица</span>
+                <span class="co-choice-sub">Оплата по реквизитам, с документами</span>
+              </span>
+            </label>
+          </div>
+
+          <button class="co-pay" type="button" id="co-pay">
+            <span class="co-pay-label">Оплатить</span>
+            <span class="co-pay-sum" id="co-pay-sum"></span>
+          </button>
+          <p class="co-note" id="co-pay-note" hidden>Приём онлайн-платежей ещё не подключён — это демонстрация оформления заказа.</p>
+          <p class="co-fine">Нажимая «Оплатить», вы соглашаетесь с условиями продажи и обработкой персональных данных.</p>
+
+          <div class="co-nav">
+            <button class="co-back" type="button" data-prev="2">← Назад</button>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+
+    <aside class="co-summary" id="co-summary">
+      <p class="co-summary-title">Ваш заказ</p>
+      <ul class="co-list" id="co-list"></ul>
+      <div class="co-line"><span>Растения</span><span id="co-sub"></span></div>
+      <div class="co-line co-line--disc" id="co-disc-line" hidden><span id="co-disc-label"></span><span id="co-disc"></span></div>
+      <div class="co-line"><span>Доставка</span><span id="co-ship">Самовывоз</span></div>
+      <div class="co-line co-line--total"><span>Итого</span><span id="co-total"></span></div>
+      <p class="co-hint">Доставка и погрузка рассчитываются менеджером после оформления.</p>
+      <a class="co-edit" href="catalog.html">Изменить состав заказа</a>
+    </aside>
+  </div>
+</section>
+
+<footer class="site-footer" id="contact">
+  <div class="footer-top">
+    <img src="assets/logo-symbol.png" class="footer-symbol" alt="Аллея">
+    <div class="footer-cols">
+      <div class="footer-col">
+        <p class="footer-col-title">Навигация</p>
+        <a href="catalog.html">Каталог</a>
+        <a href="index.html#about">О нас</a>
+        <a href="index.html#partners">Партнёры</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">Питомник</p>
+        <p>Ростов-на-Дону, Россия</p>
+        <p>По договорённости, Пн–Сб</p>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">Контакты</p>
+        <p>hello@alley-pitomnik.ru</p>
+        <p>+7 (863) 000-00-00</p>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Аллея. Все права защищены.</p>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js" integrity="sha384-O55L/6rhHr9CFvrxqv5luxOCcmVaBmETbZbJDP+Do8T0pztTACsFBD/IXCNkj7DV" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" integrity="sha384-g4NTh/Iv5PPU4xPyhEWqPcwtNXOvdaDI8LLnyYfyNZOjKJeYQyjzQ9X5275eBjpt" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" integrity="sha384-Z3REaz79l2IaAZqJsSABtTbhjgOUYyV3p90XNnAPCSHg3EMTz1fouunq9WZRtj3d" crossorigin="anonymous"></script>
+<script src="script.js"></script>
+<script src="cart.js"></script>
+<script src="checkout.js"></script>
+<script src="i18n.js"></script>
+</body>
+</html>
