@@ -2570,6 +2570,17 @@ body.cart-open { overflow: hidden; }
   }
   .site-header.is-solid { padding-top: 10px; padding-bottom: 10px; }
   .logo-img { height: 27px; }
+  /* Unscrolled, the bar now sits on the cream hero, so the same token remap flips the
+     logo, cart, lang pill and burger to dark. .is-solid restores the dark bar untouched.
+     brightness(0) blacks out the cream logo artwork while keeping its alpha. */
+  .site-header:not(.is-solid) {
+    --text-light: #1b1e14;
+    --text-light-dim: rgba(27, 30, 20, 0.62);
+    --line-on-dark: rgba(27, 30, 20, 0.14);
+    --bg-dark: #efe8d8;
+    color: var(--text-dark);
+  }
+  .site-header:not(.is-solid) .logo-img { filter: brightness(0); opacity: 0.9; }
   .nav-toggle { display: flex; }
   .header-actions { gap: 8px; }
   .lang-switch { flex: none; }
@@ -2591,6 +2602,9 @@ body.cart-open { overflow: hidden; }
     flex-direction: column;
     gap: 0;
     padding: 4px var(--pad-x) 12px;
+    /* Panel stays dark whatever the bar is doing, so its text is pinned to cream —
+       it must not inherit the dark-on-cream remap above. */
+    color: #f4efe2;
     background: rgba(16, 20, 12, 0.97);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--line-on-dark);
@@ -2613,36 +2627,50 @@ body.cart-open { overflow: hidden; }
   .main-nav a:last-child { border-bottom: 0; }
 
   /* ---------- Hero ---------- */
-  /* The clip is 16:9. Covering a tall phone viewport cropped it to roughly a quarter of
-     its width, so the tree sat outside the frame. Instead it becomes a contained square
-     that is masked into a soft circle — the feathered edge dissolves into the dark
-     background, so it reads as part of the page rather than a video box. */
+  /* Cream, matching the About section below it, so the two read as one surface. Rather
+     than restate every rule, the four palette tokens this section's descendants already
+     reference are remapped here — that flips the headline, sub and both buttons at once. */
   .hero {
+    --text-light: #1b1e14;
+    --text-light-dim: rgba(27, 30, 20, 0.62);
+    --line-on-dark: rgba(27, 30, 20, 0.14);
+    --bg-dark: #efe8d8;
     height: auto;
     min-height: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 76px var(--pad-x) 44px;
+    padding: 68px 0 44px;   /* no side padding: the video runs edge to edge */
     text-align: center;
+    color: var(--text-dark);
   }
+  /* Full-bleed at the clip's own 16:9, so nothing is cropped and it scales with the
+     viewport. The mask only feathers the outer few percent — enough that the video's
+     hard rectangle and corners dissolve into the cream, and no further. */
   .hero-video {
     position: relative;
     inset: auto;
-    width: min(72vw, 300px);
+    width: 100%;
     height: auto;
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 1920 / 1070;
     object-fit: cover;
     flex: none;
-    -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 40%, rgba(0, 0, 0, 0.8) 58%, transparent 73%);
-    mask-image: radial-gradient(circle at 50% 50%, #000 40%, rgba(0, 0, 0, 0.8) 58%, transparent 73%);
+    -webkit-mask-image:
+      linear-gradient(to right, transparent 0, #000 5%, #000 95%, transparent 100%),
+      linear-gradient(to bottom, transparent 0, #000 7%, #000 93%, transparent 100%);
+    -webkit-mask-composite: source-in;
+    mask-image:
+      linear-gradient(to right, transparent 0, #000 5%, #000 95%, transparent 100%),
+      linear-gradient(to bottom, transparent 0, #000 7%, #000 93%, transparent 100%);
+    mask-composite: intersect;
   }
   .hero-scrim { display: none; }
   .hero-content {
     position: static;
     inset: auto;
     max-width: 400px;
-    margin-top: -12px;   /* tuck up under the video's faded edge */
+    margin-top: 14px;
+    padding: 0 var(--pad-x);
   }
   .hero-headline {
     font-size: clamp(38px, 11vw, 50px);
@@ -2659,10 +2687,26 @@ body.cart-open { overflow: hidden; }
 
   /* ---------- Intro / stats ---------- */
   .intro-grid { gap: 26px; }
-  .stats-grid { gap: 26px 18px; }
-  .stat { padding-top: 18px; }
-  .stat-number, .stat-suffix { font-size: 33px; }
-  .stat-label { font-size: 12.5px; margin-top: 7px; }
+  /* Full-width rows, number left and label right, rather than a grid of half-width
+     cells: with three stats the odd one sat alone and its rule floated under nothing.
+     One rule per row spans the section, so the lines read as dividers again. */
+  .stats-grid { grid-template-columns: 1fr; gap: 0; }
+  .stat {
+    display: flex;
+    align-items: baseline;
+    padding: 13px 0;
+  }
+  .stat-number, .stat-suffix { font-size: 29px; }
+  /* The suffix's leading space is stripped once it is a flex item, so "57 га" ran
+     together. Space it back out. */
+  .stat-suffix { margin-left: 0.16em; }
+  .stat-label {
+    margin: 0 0 0 auto;      /* pushed to the right edge, number stays left */
+    padding-left: 18px;
+    max-width: 190px;
+    text-align: right;
+    font-size: 12.5px;
+  }
   .ring-motif { width: 320px; height: 320px; right: -140px; }
 
   /* ---------- Catalog cards ---------- */
@@ -2680,25 +2724,42 @@ body.cart-open { overflow: hidden; }
   /* ---------- Geography ---------- */
   /* Full width inside the section gutter: 92vw was wider than the padded content box,
      which pushed the map off-centre and past the right-hand gutter. */
-  .geography-map { width: 100%; margin: 14px auto 0; }
+  /* Full-bleed, and the map is then scaled past those edges and clipped. The box has to
+     keep the image's own 1121:592 ratio — the pins are positioned as percentages of
+     .geo-map, so a taller box crops the artwork out from under them and every pin drifts
+     off its city. Scaling enlarges both axes together and keeps them registered. */
+  .geography-map {
+    width: 100vw;
+    margin: 14px 0 0 calc(var(--pad-x) * -1);
+    overflow: hidden;
+  }
+  .geo-map { width: 125%; margin-left: -12.5%; }
   .geography-heading, .geography-sub { text-align: center; }
   .geography-sub { margin-left: auto; margin-right: auto; margin-bottom: 20px; font-size: 16px; }
   .geography > .eyebrow { text-align: center; }
-  .geo-map { aspect-ratio: 1121 / 720; }   /* taller crop — more map, less letterboxing */
-  .geo-media { border-radius: 12px; }
+  .geo-media { border-radius: 0; }
   .geo-pin { width: 30px; height: 30px; }  /* easier tap target than the 20px desktop pin */
   .geo-pin-label { font-size: 10px; }
-  .geo-credit { font-size: 10px; }
+  .geo-credit { font-size: 10px; padding: 0 var(--pad-x); }
 
   /* ---------- Testimonials ---------- */
   .vtestimonials { padding-top: var(--section-pad); padding-bottom: var(--section-pad); }
   .vt-head { margin-bottom: 26px; }
   .tm-head { margin-bottom: 22px; }
   .tm-viewport { padding: 18px 14px 30px; }
-  .tm-col { gap: 16px; }
+  /* The column is a fixed 400px, which overhangs a 390px screen and was clipping the
+     right edge of every card. Match it to the viewport instead. */
+  .tm-col { width: calc(100vw - 28px); gap: 16px; }
   .tm-card { min-height: 0; }
   .tm-inner { padding: 16px 17px; border-radius: 13px; }
-  .tm-text { font-size: 15.5px; line-height: 1.45; -webkit-line-clamp: 5; }
+  /* No line clamp: long quotes were being truncated mid-sentence. Cards grow instead. */
+  .tm-text {
+    font-size: 15.5px;
+    line-height: 1.45;
+    display: block;
+    -webkit-line-clamp: none;
+    overflow: visible;
+  }
   .tm-top { margin-bottom: 9px; }
   .tm-quote { font-size: 40px; }
   .tm-stars { font-size: 13px; }
@@ -2722,14 +2783,24 @@ body.cart-open { overflow: hidden; }
   .cta { padding: 64px var(--pad-x); }
   .cta .btn { padding: 13px 18px; font-size: 11.5px; }
   .site-footer { padding: 36px var(--pad-x) 24px; }
+  /* Two columns: logo beside the nursery details on the first row, navigation and
+     contacts beneath them. display:contents lifts the three .footer-col out of their
+     flex wrapper so they can be placed on this grid directly, no markup change. */
   .footer-top {
-    gap: 26px;
-    padding-bottom: 28px;
-    align-items: flex-start;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 24px;
+    row-gap: 26px;
+    align-items: center;
+    padding-bottom: 26px;
   }
-  .footer-symbol { height: 76px; }
-  .footer-cols { gap: 26px; flex-wrap: wrap; }
-  .footer-col { min-width: 128px; }
+  .footer-cols { display: contents; }
+  .footer-symbol { height: 78px; grid-column: 1; grid-row: 1; }
+  .footer-col:nth-child(1) { grid-column: 1; grid-row: 2; }  /* Навигация */
+  .footer-col:nth-child(2) { grid-column: 2; grid-row: 1; align-self: center; }  /* Питомник */
+  .footer-col:nth-child(3) { grid-column: 2; grid-row: 2; align-self: start; }   /* Контакты */
+  .footer-col:nth-child(1) { align-self: start; }
+  .footer-col p:last-child, .footer-col a:last-child { margin-bottom: 0; }
   .footer-col-title { font-size: 10px; margin-bottom: 10px; }
   .footer-col a, .footer-col p { font-size: 14px; margin-bottom: 7px; }
   .footer-bottom { padding-top: 16px; font-size: 11px; }
@@ -2741,3 +2812,47 @@ body.cart-open { overflow: hidden; }
   .geo-mute { display: none; }
   .geo-pin.is-on .geo-pin-label { opacity: 1; }
 }
+
+/* ==========================================================================
+   Interaction lock
+   No pinch/double-tap zoom, no text selection or copy, no image dragging, and
+   no horizontal panning past the page edges. Deliberately narrow: anything that
+   needs to receive gestures (form fields, the draggable gallery) opts back in.
+   ========================================================================== */
+
+/* pan-y allows vertical scrolling and nothing else — this is what actually stops
+   pinch-zoom and sideways drift on iOS, since the viewport meta's user-scalable
+   has been ignored there since iOS 10.
+   overflow-x: clip rather than hidden — hidden would make these a scroll container
+   and break position: sticky (the catalogue filter rail). */
+html, body {
+  touch-action: pan-y;
+  overscroll-behavior-x: none;
+  overflow-x: clip;
+  max-width: 100%;
+}
+@supports not (overflow: clip) {
+  html, body { overflow-x: hidden; }
+}
+
+body {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;   /* no long-press "save/copy image" sheet */
+}
+
+/* Anything the user is meant to type into keeps normal selection and callout. */
+input, textarea, select, [contenteditable="true"] {
+  -webkit-user-select: text;
+  user-select: text;
+  -webkit-touch-callout: default;
+}
+
+img {
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+/* The dome gallery needs raw pointer control to spin, so it opts out of pan-y.
+   Without this the sphere would only scroll the page instead of rotating. */
+.sphere-root, .sphere-root * { touch-action: none; }

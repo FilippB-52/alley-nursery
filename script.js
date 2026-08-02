@@ -492,3 +492,20 @@ document.fonts.ready.then(() => {
   jumpToDeepTarget();
 });
 ScrollTrigger.refresh();
+
+/* ---------- Interaction lock ---------- */
+// The CSS half of this lives at the bottom of styles.css. These two are the parts CSS
+// cannot cover, and both are deliberately narrow so nothing draggable or typable breaks.
+
+// Safari on iOS has ignored the viewport's user-scalable=no since iOS 10, so pinch-zoom
+// has to be refused at the gesture events themselves. Only pinch fires these — taps,
+// scrolls and the gallery's own pointer drags are untouched.
+['gesturestart', 'gesturechange', 'gestureend'].forEach((type) => {
+  document.addEventListener(type, (e) => e.preventDefault(), { passive: false });
+});
+
+// -webkit-user-drag is WebKit-only, so refuse image drags directly for everything else.
+// Scoped to images: the dome gallery drags a container, not an <img>, so it still spins.
+document.addEventListener('dragstart', (e) => {
+  if (e.target && e.target.tagName === 'IMG') e.preventDefault();
+});
