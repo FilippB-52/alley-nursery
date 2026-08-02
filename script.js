@@ -109,6 +109,28 @@ ScrollTrigger.create({
   onLeaveBack: () => header.classList.remove('is-solid')
 });
 
+/* ---------- Mobile nav dropdown ---------- */
+// Same <nav> the desktop uses — CSS turns it into a panel under the bar, this only
+// toggles the open class, so there is no second copy of the links to keep in sync.
+const navToggle = document.getElementById('nav-toggle');
+if (navToggle && header) {
+  const setNav = (open) => {
+    header.classList.toggle('nav-open', open);
+    navToggle.setAttribute('aria-expanded', String(open));
+  };
+  navToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    setNav(!header.classList.contains('nav-open'));
+  });
+  // Close on: picking a link, tapping the page, Escape, or growing past the breakpoint.
+  header.querySelectorAll('.main-nav a').forEach((a) => a.addEventListener('click', () => setNav(false)));
+  document.addEventListener('click', (e) => {
+    if (header.classList.contains('nav-open') && !header.contains(e.target)) setNav(false);
+  });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setNav(false); });
+  window.matchMedia('(min-width: 721px)').addEventListener('change', (e) => { if (e.matches) setNav(false); });
+}
+
 /* ---------- Section entrance reveals ---------- */
 const revealConfigs = [
   { selector: '.intro-left', y: 30, x: 0 },
@@ -323,17 +345,43 @@ if (geoMapForLines) {
       svg.classList.add('is-on');
     };
 
-    cityPins.forEach((pin) => {
-      pin.addEventListener('pointerenter', () => drawTo([pin]));
-      pin.addEventListener('pointerleave', clear);
-      pin.addEventListener('focus', () => drawTo([pin]));
-      pin.addEventListener('blur', clear);
-    });
-    // hovering Rostov fans lines out to every delivery city
-    hqPin.addEventListener('pointerenter', () => drawTo(cityPins, 'geo-line--all'));
-    hqPin.addEventListener('pointerleave', clear);
-    hqPin.addEventListener('focus', () => drawTo(cityPins, 'geo-line--all'));
-    hqPin.addEventListener('blur', clear);
+    // On a touch screen pointerenter/pointerleave bracket the tap itself, so the route
+    // only existed while a finger stayed pressed on the pin. Tap to latch instead:
+    // one tap draws, tapping the same pin again (or anywhere else) clears.
+    const coarsePointer = window.matchMedia('(hover: none)').matches;
+    const allPins = [hqPin].concat(cityPins);
+    const targetsFor = (pin) => (pin === hqPin ? cityPins : [pin]);
+    const classFor = (pin) => (pin === hqPin ? 'geo-line--all' : undefined);
+
+    if (coarsePointer) {
+      let latched = null;
+      const unlatch = () => {
+        if (latched) latched.classList.remove('is-on');
+        latched = null;
+        clear();
+      };
+      allPins.forEach((pin) => {
+        pin.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const wasLatched = latched === pin;
+          unlatch();
+          if (wasLatched) return;
+          drawTo(targetsFor(pin), classFor(pin));
+          pin.classList.add('is-on');
+          latched = pin;
+        });
+      });
+      document.addEventListener('click', (e) => {
+        if (latched && !geoMapForLines.contains(e.target)) unlatch();
+      });
+    } else {
+      allPins.forEach((pin) => {
+        pin.addEventListener('pointerenter', () => drawTo(targetsFor(pin), classFor(pin)));
+        pin.addEventListener('pointerleave', clear);
+        pin.addEventListener('focus', () => drawTo(targetsFor(pin), classFor(pin)));
+        pin.addEventListener('blur', clear);
+      });
+    }
   }
 }
 

@@ -52,7 +52,7 @@
   <a href="#" class="logo-link">
     <img src="assets/logo-full.png" class="logo-img" alt="Аллея">
   </a>
-  <nav class="main-nav">
+  <nav class="main-nav" id="main-nav">
     <a href="catalog.html">Каталог</a>
     <a href="#about">О нас</a>
     <a href="#partners">Партнёры</a>
@@ -66,6 +66,10 @@
     <button class="cart-btn" type="button" aria-label="Открыть корзину">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.2"/><circle cx="17" cy="20" r="1.2"/><path d="M3 4h2l2.1 11a1.5 1.5 0 0 0 1.5 1.2h7.6a1.5 1.5 0 0 0 1.5-1.2L21 8H6"/></svg>
       <span class="cart-btn-count" data-cart-count hidden>0</span>
+    </button>
+    <button class="nav-toggle" type="button" id="nav-toggle" aria-label="Меню" aria-expanded="false" aria-controls="main-nav">
+      <span class="nav-toggle-bar"></span>
+      <span class="nav-toggle-bar"></span>
     </button>
   </div>
 </header>
@@ -720,6 +724,11 @@
 <script src="soft-aurora.js"></script>
 <script src="dome-gallery.js"></script>
 <script>
+  // A tile's on-screen size is roughly radius × π ÷ segments × 2. The desktop numbers put
+  // the sphere at 800px radius, which on a phone is more than twice the viewport — you saw
+  // a slice of one huge tile and no sense of a gallery. Phones get a sphere that fits the
+  // container and proportionally fewer, larger segments so a tile still reads as a photo.
+  var domeMobile = window.matchMedia('(max-width: 720px)').matches;
   initDomeGallery(document.getElementById('dome-gallery'), {
     images: [
       'assets/gallery/1.jpg', 'assets/gallery/2.jpg', 'assets/gallery/3.jpg',
@@ -727,9 +736,9 @@
       'assets/gallery/7.jpg', 'assets/gallery/8.jpg', 'assets/gallery/9.jpg',
       'assets/gallery/10.jpg', 'assets/gallery/11.jpg'
     ],
-    fit: 0.75,
-    minRadius: 800,
-    segments: 28,
+    fit: domeMobile ? 0.8 : 0.75,
+    minRadius: domeMobile ? 300 : 800,
+    segments: domeMobile ? 18 : 28,
     dragDampening: 2.6,
     grayscale: false,
     overlayBlurColor: '#232c1c'

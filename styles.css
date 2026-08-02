@@ -39,6 +39,9 @@
   --font-body: "Zen Kurenaido", sans-serif;
   --font-mono: "Zen Kurenaido", sans-serif;
 
+  /* One horizontal gutter for every section, so nothing sits a few px off from its
+     neighbour. Overridden once in the mobile block below rather than per-section. */
+  --pad-x: clamp(24px, 5vw, 56px);
   --section-pad: clamp(64px, 9vw, 128px);
 }
 
@@ -96,7 +99,7 @@ a { color: inherit; text-decoration: none; }
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  padding: 24px clamp(24px, 5vw, 56px);
+  padding: 24px var(--pad-x);
   color: var(--text-light);
   background: transparent;
   transition: background 0.4s ease, padding 0.4s ease, border-color 0.4s ease;
@@ -106,7 +109,7 @@ a { color: inherit; text-decoration: none; }
 .site-header.is-solid {
   background: rgba(16, 20, 12, 0.92);
   backdrop-filter: blur(10px);
-  padding: 16px clamp(24px, 5vw, 56px);
+  padding: 16px var(--pad-x);
   border-bottom: 1px solid var(--line-on-dark);
 }
 
@@ -149,9 +152,32 @@ a { color: inherit; text-decoration: none; }
 .main-nav a { opacity: 0.85; transition: opacity 0.2s ease; }
 .main-nav a:hover { opacity: 1; }
 
-@media (max-width: 720px) {
-  .main-nav { display: none; }
+/* Hamburger — mobile only, revealed in the mobile block at the end of this file */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
 }
+.nav-toggle-bar {
+  display: block;
+  width: 22px;
+  height: 1.5px;
+  margin: 0 auto;
+  background: currentColor;
+  border-radius: 2px;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s ease;
+}
+/* the two bars cross into an X, both rotating about the button's centre */
+.site-header.nav-open .nav-toggle-bar:first-child { transform: translateY(3.75px) rotate(45deg); }
+.site-header.nav-open .nav-toggle-bar:last-child { transform: translateY(-3.75px) rotate(-45deg); }
 
 /* ===== Hero ===== */
 .hero {
@@ -185,9 +211,9 @@ a { color: inherit; text-decoration: none; }
 
 .hero-content {
   position: absolute;
-  left: clamp(24px, 5vw, 56px);
+  left: var(--pad-x);
   bottom: clamp(64px, 11vh, 120px);
-  right: clamp(24px, 5vw, 56px);
+  right: var(--pad-x);
   max-width: 720px;
   color: var(--text-light);
 }
@@ -290,7 +316,7 @@ a { color: inherit; text-decoration: none; }
 
 .scroll-cue {
   position: absolute;
-  right: clamp(24px, 5vw, 56px);
+  right: var(--pad-x);
   bottom: clamp(64px, 11vh, 120px);
   color: var(--text-light-dim);
   font-family: var(--font-mono);
@@ -316,7 +342,7 @@ a { color: inherit; text-decoration: none; }
 /* ===== Intro ===== */
 .intro {
   background: var(--bg-cream);
-  padding: var(--section-pad) clamp(24px, 5vw, 56px);
+  padding: var(--section-pad) var(--pad-x);
 }
 
 .intro-grid {
@@ -361,7 +387,7 @@ a { color: inherit; text-decoration: none; }
   position: relative;
   background: var(--bg-forest);
   color: var(--text-light);
-  padding: var(--section-pad) clamp(24px, 5vw, 56px);
+  padding: var(--section-pad) var(--pad-x);
   overflow: hidden;
 }
 
@@ -414,14 +440,16 @@ a { color: inherit; text-decoration: none; }
   max-width: 200px;
 }
 
+/* Two across rather than a single stacked column — three full-width rows made this
+   section far taller than it needs to be on a phone. */
 @media (max-width: 900px) {
-  .stats-grid { grid-template-columns: 1fr; gap: 36px; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 30px 22px; }
 }
 
 /* ===== Catalog ===== */
 .catalog {
   background: var(--bg-cream);
-  padding: var(--section-pad) clamp(24px, 5vw, 56px);
+  padding: var(--section-pad) var(--pad-x);
   max-width: 1280px;
   margin: 0 auto;
 }
@@ -548,8 +576,9 @@ a { color: inherit; text-decoration: none; }
 }
 
 @media (max-width: 1000px) { .catalog-grid { grid-template-columns: repeat(3, 1fr); } }
+/* Stays two-up all the way down: one card per row made each photo fill most of the
+   screen, so the section read as a stack of posters rather than a catalogue. */
 @media (max-width: 760px) { .catalog-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; } }
-@media (max-width: 440px) { .catalog-grid { grid-template-columns: 1fr; } }
 @media (prefers-reduced-motion: reduce) {
   .catalog-card:hover .catalog-media img { transform: none; }
   .catalog-badge { animation: none; }
@@ -559,7 +588,7 @@ a { color: inherit; text-decoration: none; }
 .page-head {
   background: var(--bg-dark);
   color: var(--text-light);
-  padding: 150px clamp(24px, 5vw, 56px) 60px;
+  padding: 150px var(--pad-x) 60px;
 }
 .page-head .eyebrow { color: var(--text-light-dim); }
 .page-head-title {
@@ -1099,7 +1128,7 @@ body.pm-open { overflow: hidden; }
   background: var(--bg-forest);
   color: var(--text-light);
   /* trimmed vertical padding so the title + map read together in one frame */
-  padding: clamp(44px, 6vh, 80px) clamp(24px, 5vw, 56px);
+  padding: clamp(44px, 6vh, 80px) var(--pad-x);
 }
 
 .geography-heading {
@@ -1276,7 +1305,7 @@ body.pm-open { overflow: hidden; }
 /* ===== Partners ===== */
 .partners {
   background: var(--bg-cream);
-  padding: var(--section-pad) clamp(24px, 5vw, 56px);
+  padding: var(--section-pad) var(--pad-x);
   max-width: 1280px;
   margin: 0 auto;
 }
@@ -1426,7 +1455,7 @@ body.pm-open { overflow: hidden; }
 .gallery-head {
   max-width: 1280px;
   margin: 0 auto 8px;
-  padding: 0 clamp(24px, 5vw, 56px);
+  padding: 0 var(--pad-x);
   text-align: center;
 }
 .gallery-heading {
@@ -1455,7 +1484,7 @@ body.pm-open { overflow: hidden; }
 .vtestimonials {
   background: var(--bg-forest);
   color: var(--text-light);
-  padding: var(--section-pad) clamp(24px, 5vw, 56px);
+  padding: var(--section-pad) var(--pad-x);
 }
 .vt-head {
   max-width: 1128px;
@@ -1552,7 +1581,7 @@ body.pm-open { overflow: hidden; }
 .tm-head {
   max-width: 1128px;
   margin: 0 auto 36px;
-  padding: 0 clamp(24px, 5vw, 56px);
+  padding: 0 var(--pad-x);
   text-align: center;
 }
 .tm-heading {
@@ -1716,7 +1745,7 @@ body.pm-open { overflow: hidden; }
   background: var(--bg-forest);
   color: var(--text-light);
   text-align: center;
-  padding: clamp(88px, 12vw, 148px) clamp(24px, 5vw, 56px);
+  padding: clamp(88px, 12vw, 148px) var(--pad-x);
 }
 
 /* Aurora fills the section as a full-width background layer, faded only at the
@@ -1757,7 +1786,7 @@ body.pm-open { overflow: hidden; }
 .site-footer {
   background: var(--bg-forest);
   color: var(--text-light);
-  padding: clamp(40px, 5vw, 60px) clamp(24px, 5vw, 56px) 32px;
+  padding: clamp(40px, 5vw, 60px) var(--pad-x) 32px;
 }
 
 .footer-top {
@@ -2242,7 +2271,7 @@ body.cart-open { overflow: hidden; }
   background: var(--bg-cream);
   max-width: 1360px;
   margin: 0 auto;
-  padding: clamp(40px, 5vw, 72px) clamp(24px, 5vw, 56px) var(--section-pad);
+  padding: clamp(40px, 5vw, 72px) var(--pad-x) var(--section-pad);
 }
 .co-grid {
   display: grid;
@@ -2518,4 +2547,197 @@ body.cart-open { overflow: hidden; }
 /* ===== Reduced motion ===== */
 @media (prefers-reduced-motion: reduce) {
   * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+/* ==========================================================================
+   Mobile / phone layout
+   Kept in one block at the end of the file so it reliably wins over the
+   section rules above, and so there is a single place to tune the phone view.
+   ========================================================================== */
+@media (max-width: 720px) {
+
+  :root {
+    --pad-x: 20px;
+    --section-pad: clamp(48px, 8vw, 66px);
+  }
+
+  /* ---------- Header: logo | actions, with the nav as a dropdown panel ---------- */
+  .site-header {
+    grid-template-columns: auto 1fr;
+    column-gap: 14px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+  }
+  .site-header.is-solid { padding-top: 10px; padding-bottom: 10px; }
+  .logo-img { height: 27px; }
+  .nav-toggle { display: flex; }
+  .header-actions { gap: 8px; }
+  .lang-switch { flex: none; }
+
+  /* The nav keeps its markup (so i18n and the anchors keep working) and becomes a
+     panel under the bar. Absolute, so it is out of the header's grid flow. */
+  .main-nav {
+    display: flex;
+    position: absolute;
+    /* Out of flow, so its containing block is the header's padding box — which already
+       spans the full bar, insets included. So 0/0/100% lands flush under the header and
+       edge to edge, and the panel's own --pad-x lines the links up with the logo.
+       justify-self must be reset: the desktop `center` makes an abspos grid child
+       shrink-to-fit, which collapsed this panel to the width of its longest link. */
+    justify-self: stretch;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    gap: 0;
+    padding: 4px var(--pad-x) 12px;
+    background: rgba(16, 20, 12, 0.97);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line-on-dark);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: opacity 0.28s ease, transform 0.28s ease, visibility 0.28s;
+  }
+  .site-header.nav-open .main-nav {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  .main-nav a {
+    padding: 15px 2px;
+    font-size: 17px;
+    opacity: 1;
+    border-bottom: 1px solid rgba(244, 239, 226, 0.1);
+  }
+  .main-nav a:last-child { border-bottom: 0; }
+
+  /* ---------- Hero ---------- */
+  /* The clip is 16:9. Covering a tall phone viewport cropped it to roughly a quarter of
+     its width, so the tree sat outside the frame. Instead it becomes a contained square
+     that is masked into a soft circle — the feathered edge dissolves into the dark
+     background, so it reads as part of the page rather than a video box. */
+  .hero {
+    height: auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 76px var(--pad-x) 44px;
+    text-align: center;
+  }
+  .hero-video {
+    position: relative;
+    inset: auto;
+    width: min(72vw, 300px);
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    flex: none;
+    -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 40%, rgba(0, 0, 0, 0.8) 58%, transparent 73%);
+    mask-image: radial-gradient(circle at 50% 50%, #000 40%, rgba(0, 0, 0, 0.8) 58%, transparent 73%);
+  }
+  .hero-scrim { display: none; }
+  .hero-content {
+    position: static;
+    inset: auto;
+    max-width: 400px;
+    margin-top: -12px;   /* tuck up under the video's faded edge */
+  }
+  .hero-headline {
+    font-size: clamp(38px, 11vw, 50px);
+    margin-bottom: 14px;
+  }
+  .hero-sub {
+    font-size: 16px;
+    line-height: 1.5;
+    max-width: 330px;
+    margin: 0 auto 24px;
+  }
+  .hero-actions { justify-content: center; gap: 10px; }
+  .hero .btn { padding: 13px 18px; font-size: 11.5px; }
+
+  /* ---------- Intro / stats ---------- */
+  .intro-grid { gap: 26px; }
+  .stats-grid { gap: 26px 18px; }
+  .stat { padding-top: 18px; }
+  .stat-number, .stat-suffix { font-size: 33px; }
+  .stat-label { font-size: 12.5px; margin-top: 7px; }
+  .ring-motif { width: 320px; height: 320px; right: -140px; }
+
+  /* ---------- Catalog cards ---------- */
+  /* Squarer photos and tighter type so two cards per row stay legible. */
+  .catalog-media { aspect-ratio: 1 / 1; }
+  .catalog-card { border-radius: 14px; }
+  .catalog-body { padding: 11px 12px 13px; }
+  .catalog-name { font-size: 16px; }
+  .catalog-cat { font-size: 10px; }
+  .catalog-price { font-size: 15px; }
+  .catalog-foot { padding-top: 10px; }
+  .catalog-buy { width: 32px; height: 32px; font-size: 15px; }
+  .catalog-more { margin-top: 30px; }
+
+  /* ---------- Geography ---------- */
+  /* Full width inside the section gutter: 92vw was wider than the padded content box,
+     which pushed the map off-centre and past the right-hand gutter. */
+  .geography-map { width: 100%; margin: 14px auto 0; }
+  .geography-heading, .geography-sub { text-align: center; }
+  .geography-sub { margin-left: auto; margin-right: auto; margin-bottom: 20px; font-size: 16px; }
+  .geography > .eyebrow { text-align: center; }
+  .geo-map { aspect-ratio: 1121 / 720; }   /* taller crop — more map, less letterboxing */
+  .geo-media { border-radius: 12px; }
+  .geo-pin { width: 30px; height: 30px; }  /* easier tap target than the 20px desktop pin */
+  .geo-pin-label { font-size: 10px; }
+  .geo-credit { font-size: 10px; }
+
+  /* ---------- Testimonials ---------- */
+  .vtestimonials { padding-top: var(--section-pad); padding-bottom: var(--section-pad); }
+  .vt-head { margin-bottom: 26px; }
+  .tm-head { margin-bottom: 22px; }
+  .tm-viewport { padding: 18px 14px 30px; }
+  .tm-col { gap: 16px; }
+  .tm-card { min-height: 0; }
+  .tm-inner { padding: 16px 17px; border-radius: 13px; }
+  .tm-text { font-size: 15.5px; line-height: 1.45; -webkit-line-clamp: 5; }
+  .tm-top { margin-bottom: 9px; }
+  .tm-quote { font-size: 40px; }
+  .tm-stars { font-size: 13px; }
+  .tm-divider { margin-bottom: 12px; }
+  .tm-av { width: 32px; height: 32px; font-size: 14px; }
+  .tm-name { font-size: 14.5px; }
+  .tm-source { font-size: 10px; }
+  .tm-nav { margin-top: 18px; gap: 12px; }
+  .tm-arrow { width: 40px; height: 40px; font-size: 16px; }
+
+  /* ---------- Gallery ---------- */
+  /* Sized so the eyebrow, heading, sub and the whole sphere land in one screen.
+     The sphere's own radius is reduced in the initDomeGallery options in index.html —
+     without that the tiles are laid out on a sphere far larger than the viewport. */
+  .gallery { padding: 44px 0 34px; }
+  .gallery-heading { font-size: clamp(26px, 7vw, 34px); margin: 8px 0 8px; }
+  .gallery-sub { font-size: 12.5px; }
+  .gallery .dome-wrap { height: min(52vh, 380px); }
+
+  /* ---------- CTA / footer ---------- */
+  .cta { padding: 64px var(--pad-x); }
+  .cta .btn { padding: 13px 18px; font-size: 11.5px; }
+  .site-footer { padding: 36px var(--pad-x) 24px; }
+  .footer-top {
+    gap: 26px;
+    padding-bottom: 28px;
+    align-items: flex-start;
+  }
+  .footer-symbol { height: 76px; }
+  .footer-cols { gap: 26px; flex-wrap: wrap; }
+  .footer-col { min-width: 128px; }
+  .footer-col-title { font-size: 10px; margin-bottom: 10px; }
+  .footer-col a, .footer-col p { font-size: 14px; margin-bottom: 7px; }
+  .footer-bottom { padding-top: 16px; font-size: 11px; }
+}
+
+/* Touch devices: the map's saturation reveal follows a cursor that does not exist here,
+   so the desaturated overlay would just sit on top permanently. Show full colour. */
+@media (hover: none) {
+  .geo-mute { display: none; }
+  .geo-pin.is-on .geo-pin-label { opacity: 1; }
 }

@@ -15,7 +15,7 @@
   <a href="index.html" class="logo-link">
     <img src="assets/logo-full.png" class="logo-img" alt="Аллея">
   </a>
-  <nav class="main-nav">
+  <nav class="main-nav" id="main-nav">
     <a href="catalog.html">Каталог</a>
     <a href="index.html#about">О нас</a>
     <a href="index.html#partners">Партнёры</a>
@@ -29,6 +29,10 @@
     <button class="cart-btn" type="button" aria-label="Открыть корзину">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.2"/><circle cx="17" cy="20" r="1.2"/><path d="M3 4h2l2.1 11a1.5 1.5 0 0 0 1.5 1.2h7.6a1.5 1.5 0 0 0 1.5-1.2L21 8H6"/></svg>
       <span class="cart-btn-count" data-cart-count hidden>0</span>
+    </button>
+    <button class="nav-toggle" type="button" id="nav-toggle" aria-label="Меню" aria-expanded="false" aria-controls="main-nav">
+      <span class="nav-toggle-bar"></span>
+      <span class="nav-toggle-bar"></span>
     </button>
   </div>
 </header>
