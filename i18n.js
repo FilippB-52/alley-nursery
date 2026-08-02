@@ -30,7 +30,6 @@
     'Контакты': 'Contacts',
     'Навигация': 'Navigation',
     'Питомник': 'Nursery',
-    'РОСТОВ-НА-ДОНУ': 'ROSTOV-ON-DON',
     'Ростов-на-Дону, Россия': 'Rostov-on-Don, Russia',
     'По договорённости, Пн–Сб': 'By appointment, Mon–Sat',
     '© 2026 Аллея. Все права защищены.': '© 2026 Alleya. All rights reserved.',

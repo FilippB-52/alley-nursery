@@ -1,0 +1,8 @@
+# Superseded build-time English page. Kept in the repo for reference, but it loads
+# styles.css and assets/ by relative path from the project root, so served from its own
+# subdirectory every one of those 404s. Live translation is handled by i18n.js instead.
+English Version/
+
+# Local dev only
+devserver.py
+scripts/
