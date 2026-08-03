@@ -53,15 +53,15 @@ function revealHero(instant) {
 
 // Only run the hero-intro reveal on pages that actually have the intro video
 // (so other pages, e.g. the full catalog, keep their header visible normally), and only
-// when this load is meant to show it — see the decision made in the <head> of index.html.
-if (introVideo && window.__playIntro === false) {
-  revealHero(true); // no intro this load — show the hero at once, no fade-in
-} else if (introVideo) {
+// when this load is meant to gate on it — see the decision made in the <head> of index.html.
+if (introVideo && window.__gateHero) {
   // Elements are hidden by the .intro-pending gate in <head> (no flash before JS runs).
   // Mirror that hidden state as GSAP inline props so the reveal tween has a clean start.
   gsap.set(heroEls, { opacity: 0, y: 18 });
   if (heroScrim) gsap.set(heroScrim, { opacity: 0 });
 
+  // Squeeze the ~5s source into the budget rather than re-encoding. Only while the copy
+  // waits on it; when nothing is gated the growth is free to run at its natural pace.
   const fitIntro = () => {
     const d = introVideo.duration;
     if (d && isFinite(d) && d > INTRO_SECONDS) introVideo.playbackRate = d / INTRO_SECONDS;
@@ -73,6 +73,10 @@ if (introVideo && window.__playIntro === false) {
   introVideo.addEventListener('error', revealHero);
   // Failsafe: if autoplay is blocked and 'ended' never fires, reveal shortly after the budget.
   setTimeout(revealHero, INTRO_SECONDS * 1000 + 1000);
+} else if (introVideo) {
+  // Nothing to wait for: either the intro is skipped this load, or this is a phone, where
+  // the hero reads immediately and the tree grows underneath it.
+  revealHero(true);
 }
 
 /* ---------- Lenis smooth scroll, synced to ScrollTrigger ---------- */

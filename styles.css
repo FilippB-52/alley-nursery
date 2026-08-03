@@ -2640,37 +2640,40 @@ body.cart-open { overflow: hidden; }
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 68px 0 44px;   /* no side padding: the video runs edge to edge */
+    padding: 0 0 44px;   /* no side padding: the video runs edge to edge */
     text-align: center;
     color: var(--text-dark);
   }
-  /* Full-bleed at the clip's own 16:9, so nothing is cropped and it scales with the
-     viewport. The mask only feathers the outer few percent — enough that the video's
-     hard rectangle and corners dissolve into the cream, and no further. */
+  /* A real background again: the clip fills the top of the screen edge to edge, starting
+     under the header, cropped by `cover` rather than letterboxed into a strip. Only the
+     bottom is feathered — the sides run into the viewport and the top has nothing above it
+     to blend with. The fade is where the copy sits, so image and text read as one block. */
   .hero-video {
     position: relative;
     inset: auto;
     width: 100%;
-    height: auto;
-    aspect-ratio: 1920 / 1070;
+    height: 54vh;
+    min-height: 340px;
+    max-height: 500px;
     object-fit: cover;
     flex: none;
-    -webkit-mask-image:
-      linear-gradient(to right, transparent 0, #000 5%, #000 95%, transparent 100%),
-      linear-gradient(to bottom, transparent 0, #000 7%, #000 93%, transparent 100%);
-    -webkit-mask-composite: source-in;
-    mask-image:
-      linear-gradient(to right, transparent 0, #000 5%, #000 95%, transparent 100%),
-      linear-gradient(to bottom, transparent 0, #000 7%, #000 93%, transparent 100%);
-    mask-composite: intersect;
+    -webkit-mask-image: linear-gradient(to bottom, #000 46%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 46%, transparent 100%);
   }
   .hero-scrim { display: none; }
   .hero-content {
-    position: static;
+    position: relative;
+    z-index: 2;
     inset: auto;
     max-width: 400px;
-    margin-top: 14px;
+    /* Rides up into the faded bottom of the clip so the headline sits on the image. */
+    margin-top: -17vh;
     padding: 0 var(--pad-x);
+  }
+  /* The eyebrow now lands on foliage instead of flat cream, where dim grey disappears. */
+  .hero-content .eyebrow {
+    color: rgba(27, 30, 20, 0.88);
+    margin-bottom: 14px;
   }
   .hero-headline {
     font-size: clamp(38px, 11vw, 50px);

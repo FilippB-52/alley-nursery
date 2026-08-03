@@ -25,9 +25,13 @@
     var seen = false;
     try { seen = sessionStorage.getItem('alleya.introSeen') === '1'; } catch (e) { /* private mode */ }
     window.__playIntro = !window.__deepLink && (reloaded || !seen);
+    // Whether the hero copy waits for the growth to finish. On a phone the wait just leaves
+    // a near-empty screen, so the text is there from the first frame and the tree grows
+    // behind it — the animation still plays, it simply isn't a gate.
+    window.__gateHero = window.__playIntro && !window.matchMedia('(max-width: 720px)').matches;
     try { sessionStorage.setItem('alleya.introSeen', '1'); } catch (e) { /* private mode */ }
     // Runs before body paints — hides hero elements so there is no flash of visible text.
-    if (window.__playIntro) document.documentElement.classList.add('intro-pending');
+    if (window.__gateHero) document.documentElement.classList.add('intro-pending');
   })();
 </script>
 <style>
