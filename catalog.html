@@ -7,7 +7,7 @@
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="page-cream-head">
 
 <div class="grain"></div>
 
@@ -45,9 +45,12 @@
 
 <section class="catalog-layout catalog-page" id="inventory">
   <aside class="filters" id="filters">
-    <p class="filters-title">Фильтры</p>
+    <div class="filters-head">
+      <p class="filters-title">Фильтры</p>
+      <button class="filters-close" type="button" id="filters-close" aria-label="Закрыть фильтры">&times;</button>
+    </div>
 
-    <div class="filter-group">
+    <div class="filter-group" id="segment-group">
       <p class="filter-label">Корневая система</p>
       <div class="chip-row">
         <button class="chip is-active" type="button" data-segment="grunt">Грунтовые</button>
@@ -113,9 +116,20 @@
     </div>
 
     <button class="filters-reset" type="button" id="filters-reset">Сбросить фильтры</button>
+    <button class="filters-apply" type="button" id="filters-apply">Показать <span id="apply-n">17</span></button>
   </aside>
+  <div class="filters-scrim" id="filters-scrim" hidden></div>
 
   <div class="catalog-main">
+    <!-- Phones only: the root-system split stays on screen as tabs (JS moves the real chips
+         in here so their wiring survives), everything else hides behind one button. -->
+    <div class="cat-mobilebar" id="cat-mobilebar">
+      <div class="cat-segwrap" id="cat-segwrap"></div>
+      <button class="cat-filter-btn" type="button" id="cat-filter-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M3 6h18M6 12h12M10 18h4"/></svg>
+        Фильтры<span class="cat-filter-count" id="cat-filter-count" hidden></span>
+      </button>
+    </div>
     <p class="catalog-discount">Гибкие скидки: 5% от 100 000 ₽ · 10% от 300 000 ₽ · 15% от 500 000 ₽</p>
     <div class="catalog-toolbar">
       <p class="result-count"><span id="result-n">17</span> из <span id="result-total">17</span> видов</p>
@@ -152,7 +166,7 @@
       </div>
       <div class="footer-col">
         <p class="footer-col-title">Питомник</p>
-        <p>Ростов-на-Дону, Россия</p>
+        <p>Ростов-на-Дону</p>
         <p>По договорённости, Пн–Сб</p>
       </div>
       <div class="footer-col">

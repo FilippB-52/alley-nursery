@@ -113,6 +113,20 @@ a { color: inherit; text-decoration: none; }
   border-bottom: 1px solid var(--line-on-dark);
 }
 
+/* Pages that open on a cream .page-head (catalog, checkout) rather than the dark hero.
+   Unscrolled, the transparent bar's cream-on-dark treatment would be cream on cream — the
+   same token remap the phone breakpoint uses flips the logo, links, cart, lang pill and
+   burger to dark. .is-solid brings back the dark bar and takes over from here. */
+.page-cream-head .site-header:not(.is-solid) {
+  --text-light: #1b1e14;
+  --text-light-dim: rgba(27, 30, 20, 0.62);
+  --line-on-dark: rgba(27, 30, 20, 0.14);
+  --bg-dark: #efe8d8;
+  color: var(--text-dark);
+}
+/* brightness(0) blacks out the cream logo artwork while keeping its alpha. */
+.page-cream-head .site-header:not(.is-solid) .logo-img { filter: brightness(0); opacity: 0.9; }
+
 .logo-link { display: inline-flex; justify-self: start; }
 
 .logo-img { height: 34px; width: auto; display: block; }
@@ -585,12 +599,15 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* ===== Full catalog page header ===== */
+/* Cream, not the near-black --bg-dark it used to be. The header sits over this section
+   unscrolled, and its logo and icons are black on phones — on the dark panel the whole bar
+   disappeared. Cream also makes the head continuous with the catalog body below it. */
 .page-head {
-  background: var(--bg-dark);
-  color: var(--text-light);
+  background: var(--bg-cream);
+  color: var(--text-dark);
   padding: 150px var(--pad-x) 60px;
 }
-.page-head .eyebrow { color: var(--text-light-dim); }
+.page-head .eyebrow { color: var(--text-dark-dim); }
 .page-head-title {
   font-family: var(--font-display);
   font-weight: 600;
@@ -599,7 +616,7 @@ a { color: inherit; text-decoration: none; }
   margin: 10px 0 16px;
 }
 .page-head-sub {
-  color: var(--text-light-dim);
+  color: var(--text-dark-dim);
   font-size: 19px;
   max-width: 520px;
   margin: 0;
@@ -627,6 +644,9 @@ a { color: inherit; text-decoration: none; }
 
 /* --- Sidebar --- */
 .filters { position: sticky; top: 92px; }
+/* Sheet chrome — only ever visible on phones, see the max-width: 860px block below. */
+.filters-head { display: flex; align-items: center; justify-content: space-between; }
+.filters-close, .filters-apply, .cat-mobilebar, .filters-scrim { display: none; }
 .filters-title {
   font-family: var(--font-display);
   font-weight: 600;
@@ -807,12 +827,148 @@ a { color: inherit; text-decoration: none; }
   .catalog-layout .catalog-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 860px) {
-  .catalog-layout { grid-template-columns: 1fr; gap: 28px; }
-  .filters { position: static; }
-  .filters .filter-group:first-of-type { border-top: 1px solid var(--line-on-cream); padding-top: 24px; }
+  .catalog-layout { grid-template-columns: 1fr; gap: 18px; }
+  /* 150px of head above a phone-sized title left half a screen of empty cream. */
+  .page-head { padding: 96px var(--pad-x) 30px; }
+
+  /* Sticky strip carrying the root-system tabs and the filter button. */
+  .cat-mobilebar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: sticky;
+    top: 56px;              /* clears the fixed header */
+    z-index: 40;
+    margin: 0 calc(var(--pad-x) * -1) 4px;
+    padding: 10px var(--pad-x);
+    background: var(--bg-cream);
+    border-bottom: 1px solid var(--line-on-cream);
+  }
+  .cat-segwrap { flex: 1; min-width: 0; }
+  .cat-segwrap .filter-group { border: 0; padding: 0; margin: 0; }
+  .cat-segwrap .filter-label { display: none; }   /* the two chips speak for themselves */
+  .cat-segwrap .chip-row { flex-wrap: nowrap; gap: 8px; }
+  .cat-segwrap .chip { font-size: 12.5px; padding: 8px 14px; white-space: nowrap; }
+  .cat-filter-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    flex: none;
+    padding: 9px 14px;
+    border: 1px solid var(--text-dark);
+    border-radius: 999px;
+    background: var(--text-dark);
+    color: var(--bg-cream);
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  .cat-filter-btn svg { width: 15px; height: 15px; }
+  .cat-filter-count {
+    min-width: 17px;
+    height: 17px;
+    padding: 0 4px;
+    border-radius: 999px;
+    background: var(--bg-cream);
+    color: var(--text-dark);
+    font-size: 10.5px;
+    line-height: 17px;
+    text-align: center;
+  }
+
+  /* The sidebar becomes a bottom sheet. */
+  .filters {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: auto;
+    z-index: 210;
+    max-height: 86dvh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    margin: 0;
+    padding: 18px var(--pad-x) calc(18px + env(safe-area-inset-bottom));
+    background: var(--bg-cream);
+    border-radius: 20px 20px 0 0;
+    box-shadow: 0 -18px 50px rgba(16, 20, 12, 0.3);
+    transform: translateY(101%);
+    visibility: hidden;
+    transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.32s;
+  }
+  .filters.is-open { transform: none; visibility: visible; }
+  /* As with .pm-overlay: [hidden] must beat this display, or the invisible scrim covers
+     the page and eats every tap. */
+  .filters-scrim[hidden] { display: none; }
+  .filters-scrim {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 205;
+    background: rgba(16, 20, 12, 0.5);
+    backdrop-filter: blur(3px);
+  }
+  body.filters-open { overflow: hidden; }
+
+  .filters-head {
+    position: sticky;
+    top: -18px;             /* cancels the sheet's own top padding */
+    z-index: 2;
+    margin: -18px calc(var(--pad-x) * -1) 6px;
+    padding: 16px var(--pad-x) 12px;
+    background: var(--bg-cream);
+    border-bottom: 1px solid var(--line-on-cream);
+  }
+  .filters-title { margin: 0; font-size: 20px; }
+  .filters-close {
+    display: block;
+    width: 34px;
+    height: 34px;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(27, 30, 20, 0.06);
+    color: var(--text-dark);
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+  }
+  /* The segment group lives in the sticky bar at this width, so the sheet starts at Тип. */
+  .filters .filter-group:first-of-type { border-top: 0; padding-top: 0; }
+  .filters-apply {
+    display: block;
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+    margin-top: 18px;
+    padding: 15px 18px;
+    border: 0;
+    border-radius: 12px;
+    background: var(--text-dark);
+    color: var(--bg-cream);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  .filters-reset { margin-top: 6px; }
 }
+/* Two-up all the way down, matching the landing page. One card per row turned every
+   photo into a full screen, so finding a species meant scrolling through posters. */
 @media (max-width: 560px) {
-  .catalog-layout .catalog-grid { grid-template-columns: 1fr; }
+  .catalog-layout .catalog-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .catalog-layout .catalog-body { padding: 12px 13px 14px; }
+  .catalog-layout .catalog-cat { font-size: 10px; }
+  .catalog-layout .catalog-name { font-size: 16px; line-height: 1.2; }
+  .catalog-layout .catalog-price { font-size: 15px; }
+  .catalog-layout .catalog-foot { padding-top: 10px; }
+  .catalog-layout .catalog-buy { width: 36px; height: 36px; }
+  .catalog-layout .catalog-buy svg { width: 16px; height: 16px; }
+  /* Two-class selector: the base .catalog-discount rule sits later in the file and would
+     otherwise win on source order at equal specificity. */
+  .catalog-main .catalog-discount { font-size: 12px; margin-bottom: 14px; }
 }
 .catalog-card { cursor: pointer; }
 
@@ -1013,11 +1169,54 @@ body.pm-open { overflow: hidden; }
 }
 .pm-ship:hover { color: var(--text-dark); }
 
+/* Phones: the dialog was a poster you were trapped inside. The photo was sticky, so it
+   stayed pinned over half the screen no matter how far you scrolled; the close button was
+   absolutely positioned inside the scroll container, so it scrolled away; and "В корзину"
+   sat ~200px below the viewport. Now the photo scrolls with the content, the close button
+   and the buy row are pinned to the top and bottom edges, and everything between them
+   scrolls. */
 @media (max-width: 760px) {
-  .pm-dialog { grid-template-columns: 1fr; }
-  .pm-media { flex-direction: column-reverse; }
+  .pm-overlay { padding: 0; align-items: flex-end; }
+  .pm-dialog {
+    grid-template-columns: 1fr;
+    width: 100%;
+    max-height: 92dvh;
+    padding: 0 16px 0;
+    gap: 16px;
+    border-radius: 20px 20px 0 0;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+  .pm-close {
+    position: sticky;
+    top: 10px;
+    justify-self: end;
+    /* Negative bottom margin collapses the row it would otherwise occupy, so the photo
+       starts at the top of the sheet and the button floats over its corner. */
+    margin: 10px -2px -44px 0;
+    background: rgba(239, 232, 216, 0.92);
+    backdrop-filter: blur(6px);
+    z-index: 3;
+  }
+  .pm-media { flex-direction: column-reverse; position: static; }
   .pm-thumbs { flex-direction: row; }
-  .pm-thumb { width: 64px; height: 64px; }
+  .pm-thumb { width: 56px; height: 56px; }
+  .pm-main { aspect-ratio: 4 / 3; max-height: 32dvh; }
+  .pm-name { font-size: 26px; }
+  .pm-desc { font-size: 15px; }
+  /* Pushed last in the flex column so it can stay pinned to the bottom edge for the whole
+     scroll, with the stock line and shipping link above it. */
+  .pm-buy {
+    order: 10;
+    position: sticky;
+    bottom: 0;
+    margin-top: 14px;
+    padding: 12px 0 calc(14px + env(safe-area-inset-bottom));
+    background: var(--bg-cream);
+    border-top: 1px solid var(--line-on-cream);
+    flex-wrap: nowrap;
+  }
+  .pm-add { flex: 1; }
 }
 @media (prefers-reduced-motion: reduce) {
   .pm-overlay, .pm-dialog { transition: none; }

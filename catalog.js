@@ -223,7 +223,68 @@
     resultN.textContent = visible.length;
     if (resultTotal) resultTotal.textContent = inSegment.length;
     emptyMsg.hidden = visible.length !== 0;
+    syncMobileBar(visible.length);
   }
+
+  /* ---- Phones: filters behind a button instead of a wall above the products ---- */
+  // The sidebar rendered in full above the grid, so reaching a single tree meant scrolling
+  // past every filter group. This is the usual e-commerce handling: the primary split
+  // (грунтовые / контейнерные) stays on screen as tabs, everything else lives in a bottom
+  // sheet behind one button that carries a count of what is active, and the sheet's
+  // confirm button reports how many species the current selection leaves.
+  const mq = window.matchMedia('(max-width: 860px)');
+  const filtersEl = document.getElementById('filters');
+  const scrim = document.getElementById('filters-scrim');
+  const segHost = document.getElementById('cat-segwrap');
+  const segGroup = document.getElementById('segment-group');
+  const openBtn = document.getElementById('cat-filter-btn');
+  const countEl = document.getElementById('cat-filter-count');
+  const applyBtn = document.getElementById('filters-apply');
+  const applyN = document.getElementById('apply-n');
+  const closeBtn = document.getElementById('filters-close');
+  const segHome = segGroup && segGroup.parentNode;
+
+  function activeCount() {
+    return state.type.size + state.height.size + state.caliper.size +
+      (state.lo > PMIN || state.hi < PMAX ? 1 : 0);
+  }
+  function syncMobileBar(n) {
+    if (applyN) applyN.textContent = n;
+    if (!countEl) return;
+    const c = activeCount();
+    countEl.textContent = c;
+    countEl.hidden = c === 0;
+  }
+
+  let sheetOpen = false;
+  function setSheet(open) {
+    sheetOpen = open;
+    filtersEl.classList.toggle('is-open', open);
+    if (scrim) scrim.hidden = !open;
+    document.body.classList.toggle('filters-open', open);
+    // Lenis keeps driving the page behind the sheet otherwise, so the sheet's own
+    // scrolling fights it.
+    if (window.__lenis) open ? window.__lenis.stop() : window.__lenis.start();
+  }
+  if (openBtn) openBtn.addEventListener('click', () => setSheet(true));
+  if (closeBtn) closeBtn.addEventListener('click', () => setSheet(false));
+  if (applyBtn) applyBtn.addEventListener('click', () => setSheet(false));
+  if (scrim) scrim.addEventListener('click', () => setSheet(false));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && sheetOpen) setSheet(false); });
+
+  // Move the real segment chips between the sheet and the sticky bar rather than
+  // duplicating them, so their existing click wiring and .is-active state carry over.
+  function placeSegment() {
+    if (!segGroup || !segHost || !segHome) return;
+    const target = mq.matches ? segHost : segHome;
+    if (segGroup.parentNode !== target) {
+      if (target === segHome) segHome.insertBefore(segGroup, segHome.children[1] || null);
+      else target.appendChild(segGroup);
+    }
+    if (!mq.matches && sheetOpen) setSheet(false);
+  }
+  placeSegment();
+  mq.addEventListener('change', placeSegment);
 
   if (location.hash === '#container') switchSegment('container');
   syncRange(); // initial paint
