@@ -262,8 +262,9 @@
     filtersEl.classList.toggle('is-open', open);
     if (scrim) scrim.hidden = !open;
     document.body.classList.toggle('filters-open', open);
-    // Lenis keeps driving the page behind the sheet otherwise, so the sheet's own
-    // scrolling fights it.
+    // Lenis keeps driving the page behind the sheet otherwise. Note that a stopped Lenis
+    // preventDefaults every touchmove on the page, so the sheet itself carries
+    // data-lenis-prevent (see catalog.html) or it would not scroll on a phone.
     if (window.__lenis) open ? window.__lenis.stop() : window.__lenis.start();
   }
   if (openBtn) openBtn.addEventListener('click', () => setSheet(true));

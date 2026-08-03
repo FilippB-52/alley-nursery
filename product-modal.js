@@ -15,7 +15,7 @@
   overlay.className = 'pm-overlay';
   overlay.hidden = true;
   overlay.innerHTML = `
-    <div class="pm-dialog" role="dialog" aria-modal="true" aria-labelledby="pm-name">
+    <div class="pm-dialog" role="dialog" aria-modal="true" aria-labelledby="pm-name" data-lenis-prevent>
       <button class="pm-close" type="button" aria-label="Закрыть">&times;</button>
       <div class="pm-media">
         <div class="pm-thumbs" id="pm-thumbs"></div>
@@ -186,6 +186,10 @@
     if (!populate(slug)) return;
     overlay.hidden = false;
     document.body.classList.add('pm-open');
+    // A stopped Lenis calls preventDefault() on every wheel and touchmove on the page, so
+    // it silently kills native scrolling inside this dialog as well — the modal looked
+    // frozen on a phone. data-lenis-prevent on .pm-dialog (see the template above) is the
+    // documented opt-out; Lenis checks the composed path for it before it preventDefaults.
     if (window.__lenis) window.__lenis.stop();
     requestAnimationFrame(() => overlay.classList.add('is-open'));
     el.close.focus();

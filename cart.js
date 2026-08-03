@@ -118,7 +118,7 @@
         <p class="cart-title">Корзина</p>
         <button class="cart-close" type="button" aria-label="Закрыть">&times;</button>
       </header>
-      <div class="cart-scroll">
+      <div class="cart-scroll" data-lenis-prevent>
         <ul class="cart-items"></ul>
         <div class="cart-blank" hidden>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.2"/><circle cx="17" cy="20" r="1.2"/><path d="M3 4h2l2.1 11a1.5 1.5 0 0 0 1.5 1.2h7.6a1.5 1.5 0 0 0 1.5-1.2L21 8H6"/></svg>
@@ -224,6 +224,8 @@
     if (!drawer.hidden) return;
     drawer.hidden = false;
     document.body.classList.add('cart-open');
+    // Stopping Lenis makes it preventDefault every touchmove on the page, which would take
+    // the drawer's own list with it — .cart-scroll carries data-lenis-prevent to opt out.
     if (window.__lenis) window.__lenis.stop();
     requestAnimationFrame(() => drawer.classList.add('is-open'));
     ui.close.focus();
