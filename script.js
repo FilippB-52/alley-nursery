@@ -252,42 +252,34 @@ if (geoMap && window.matchMedia('(hover: hover) and (pointer: fine)').matches &&
 }
 
 /* ---------- Partner photo carousels ---------- */
-// Consecutive galleries are paired and share one timer (Решетова + ODU switch together;
-// Greenаura + Еремеева switch together). Each pair only starts cycling once it scrolls
-// into view — and resets to the first image at that moment — so you always meet the
-// person's first photo before her works start rotating.
-const partnerGalleries = Array.from(document.querySelectorAll('.partner-gallery'));
-for (let g = 0; g < partnerGalleries.length; g += 2) {
-  const pair = partnerGalleries.slice(g, g + 2)
-    .map((gal) => ({ gal, slides: Array.from(gal.querySelectorAll('.pg-slide')) }))
-    .filter((p) => p.slides.length > 0);
-  if (!pair.length) continue;
+// Every gallery waits for its own scroll-in before it starts cycling, and resets to the
+// first image at that moment, so each partner is met on her first photo.
+//
+// These used to be paired — two cards sharing one timer, gated on the first card of the
+// pair. On a phone .partners-grid is a single column, so the second card of each pair
+// (ODU, Еремеева) was several photos deep by the time you scrolled to it. Watching each
+// gallery separately fixes that; on desktop the two cards in a row still come into view
+// together, so they stay in step anyway.
+document.querySelectorAll('.partner-gallery').forEach((gal) => {
+  const slides = Array.from(gal.querySelectorAll('.pg-slide'));
+  if (!slides.length) return;
 
   let step = 0;
-  let started = false;
-  const render = () => pair.forEach((p) => {
-    p.slides.forEach((s) => s.classList.remove('is-active'));
-    const idx = ((step % p.slides.length) + p.slides.length) % p.slides.length;
-    p.slides[idx].classList.add('is-active');
-  });
-
-  const startCycling = () => {
-    if (started || prefersReducedMotion) return;
-    started = true;
-    step = 0;
-    render(); // ensure the first image is the one on screen when it comes into view
-    if (pair.some((p) => p.slides.length > 1)) {
-      setInterval(() => { step += 1; render(); }, 4000);
-    }
+  const render = () => {
+    slides.forEach((s) => s.classList.remove('is-active'));
+    slides[step % slides.length].classList.add('is-active');
   };
 
   const io = new IntersectionObserver((entries) => {
-    entries.forEach((e) => {
-      if (e.isIntersecting) { startCycling(); io.disconnect(); }
-    });
+    if (!entries.some((e) => e.isIntersecting)) return;
+    io.disconnect();
+    if (prefersReducedMotion) return;
+    step = 0;
+    render(); // the first image is the one on screen the moment it arrives
+    if (slides.length > 1) setInterval(() => { step += 1; render(); }, 4000);
   }, { threshold: 0.4 });
-  io.observe(pair[0].gal);
-}
+  io.observe(gal);
+});
 
 /* ---------- Sales map: connector line from Rostov HQ to a hovered pin ---------- */
 const geoMapForLines = document.querySelector('.geo-map');

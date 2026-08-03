@@ -685,7 +685,7 @@
       </div>
       <div class="footer-col">
         <p class="footer-col-title">Питомник</p>
-        <p>Ростов-на-Дону, Россия</p>
+        <p>Ростов-на-Дону</p>
         <p>По договорённости, Пн–Сб</p>
       </div>
       <div class="footer-col">
@@ -743,6 +743,9 @@
     fit: domeMobile ? 0.8 : 0.75,
     minRadius: domeMobile ? 300 : 800,
     segments: domeMobile ? 18 : 28,
+    // Divisor on drag distance, so lower = the sphere turns further per swipe. The stock 20
+    // needed most of a phone screen to advance a single tile, which read as a stuck gallery.
+    dragSensitivity: domeMobile ? 8 : 12,
     dragDampening: 2.6,
     grayscale: false,
     overlayBlurColor: '#232c1c'

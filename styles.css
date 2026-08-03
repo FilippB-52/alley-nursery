@@ -2595,19 +2595,23 @@ body.cart-open { overflow: hidden; }
        edge to edge, and the panel's own --pad-x lines the links up with the logo.
        justify-self must be reset: the desktop `center` makes an abspos grid child
        shrink-to-fit, which collapsed this panel to the width of its longest link. */
-    justify-self: stretch;
+    justify-self: end;
     top: 100%;
-    left: 0;
-    right: 0;
+    left: auto;
+    right: var(--pad-x);   /* lines the panel's edge up with the toggle above it */
+    /* A panel under the toggle rather than a full-width curtain — the logo and the bar
+       stay visible beside it. Capped so it never becomes a thin strip on a wide phone. */
+    width: min(64vw, 250px);
     flex-direction: column;
     gap: 0;
-    padding: 4px var(--pad-x) 12px;
+    padding: 4px 16px 12px;
+    border-radius: 0 0 12px 12px;
     /* Panel stays dark whatever the bar is doing, so its text is pinned to cream —
        it must not inherit the dark-on-cream remap above. */
     color: #f4efe2;
     background: rgba(16, 20, 12, 0.97);
     backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--line-on-dark);
+    box-shadow: 0 18px 40px rgba(16, 20, 12, 0.28);
     opacity: 0;
     visibility: hidden;
     transform: translateY(-10px);
@@ -2786,27 +2790,34 @@ body.cart-open { overflow: hidden; }
   .cta { padding: 64px var(--pad-x); }
   .cta .btn { padding: 13px 18px; font-size: 11.5px; }
   .site-footer { padding: 36px var(--pad-x) 24px; }
-  /* Two columns: logo beside the nursery details on the first row, navigation and
-     contacts beneath them. display:contents lifts the three .footer-col out of their
-     flex wrapper so they can be placed on this grid directly, no markup change. */
+  /* Symbol centred over all three columns, which stay side by side across the width. The
+     previous 2x2 arrangement (logo beside the nursery details, nav and contacts beneath)
+     read as four loose blocks rather than one footer. */
   .footer-top {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    column-gap: 24px;
-    row-gap: 26px;
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    padding-bottom: 26px;
+    gap: 22px;
+    padding-bottom: 22px;
   }
-  .footer-cols { display: contents; }
-  .footer-symbol { height: 78px; grid-column: 1; grid-row: 1; }
-  .footer-col:nth-child(1) { grid-column: 1; grid-row: 2; }  /* Навигация */
-  .footer-col:nth-child(2) { grid-column: 2; grid-row: 1; align-self: center; }  /* Питомник */
-  .footer-col:nth-child(3) { grid-column: 2; grid-row: 2; align-self: start; }   /* Контакты */
-  .footer-col:nth-child(1) { align-self: start; }
+  .footer-symbol { height: 96px; }
+  .footer-cols {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    width: 100%;
+  }
   .footer-col p:last-child, .footer-col a:last-child { margin-bottom: 0; }
-  .footer-col-title { font-size: 10px; margin-bottom: 10px; }
-  .footer-col a, .footer-col p { font-size: 14px; margin-bottom: 7px; }
-  .footer-bottom { padding-top: 16px; font-size: 11px; }
+  .footer-col-title { font-size: 9px; letter-spacing: 0.07em; margin-bottom: 9px; }
+  .footer-col a, .footer-col p {
+    font-size: 12px;
+    line-height: 1.45;
+    margin-bottom: 6px;
+    /* The email is wider than a third of a phone screen — let it break rather than
+       push the grid out of the viewport. */
+    overflow-wrap: anywhere;
+  }
+  .footer-bottom { padding-top: 16px; font-size: 11px; text-align: center; }
 }
 
 /* Touch devices: the map's saturation reveal follows a cursor that does not exist here,
